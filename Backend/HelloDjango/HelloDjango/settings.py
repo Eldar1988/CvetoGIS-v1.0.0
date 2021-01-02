@@ -25,12 +25,15 @@ SECRET_KEY = '89$w_2xc(u(%s%g-5rt#rp$#(pgppcls=@g&)p3eq4+&uldfl0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.199']
+ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['192.168.0.199']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'shop',
+
     'rest_framework',
     'corsheaders',
     'ckeditor',
