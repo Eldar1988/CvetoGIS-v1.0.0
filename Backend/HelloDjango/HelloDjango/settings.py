@@ -13,6 +13,8 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+import cloudinary
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -25,14 +27,15 @@ SECRET_KEY = '89$w_2xc(u(%s%g-5rt#rp$#(pgppcls=@g&)p3eq4+&uldfl0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-# ALLOWED_HOSTS = ['192.168.0.199']
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.0.199']
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'shop',
+    'cvetogis',
 
     'rest_framework',
     'corsheaders',
@@ -174,3 +177,9 @@ CACHES = {
         'LOCATION': 'unique-snowflake'
     }
 }
+
+cloudinary.config(
+  cloud_name="space-developers",
+  api_key="432633785332378",
+  api_secret="HS-iGAgZl1FWxAebV_LfedLMaD8"
+)

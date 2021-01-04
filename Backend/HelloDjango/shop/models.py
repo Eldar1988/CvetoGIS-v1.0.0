@@ -25,6 +25,9 @@ class City(models.Model):
     title = models.CharField('Название города', max_length=255)
     slug = models.SlugField(unique=True)
     order = models.PositiveSmallIntegerField('Порядковый номер', null=True, blank=True)
+    address = models.TextField('Адрес магазина в городе', help_text='Вместе с названием города')
+    phone = models.CharField('Номер телефона', max_length=20)
+    whatsapp = models.CharField('Whatsapp', max_length=20, help_text='В формате: 7707*******')
 
     def __str__(self):
         return self.title
@@ -157,6 +160,7 @@ class Product(models.Model):
     description = RichTextUploadingField('Полное описание товара', blank=True, null=True)
     future = models.BooleanField('Избранное', default=False)
     show_on_home_page = models.BooleanField('Показать на главной странице', default=False)
+    suggest = models.BooleanField('Предлагать к другим товарам', default=False)
     order = models.PositiveSmallIntegerField('Порядковый номер', blank=True, null=True)
     slug = models.SlugField('Slug', unique=True)
     seller = models.ForeignKey(Seller, on_delete=models.PROTECT, verbose_name='Продавец', null=True, blank=True,
@@ -196,11 +200,11 @@ class Size(models.Model):
 class Image(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True,
                                 related_name='images', verbose_name='Товар')
-    image = CloudinaryField('Дополнительные изображения товаров', folder='cvetogis/products/images')
+    image = CloudinaryField('Дополнительные изображения товара', folder='cvetogis/products/images')
 
     def __str__(self):
-        return self.image
+        return self.image.url
 
     class Meta:
         verbose_name = 'Изображение товара'
-        verbose_name_plural = 'Изображения товаров'
+        verbose_name_plural = 'Изображения товара'

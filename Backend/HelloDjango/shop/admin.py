@@ -84,8 +84,7 @@ class ProductAdmin(admin.ModelAdmin):
     save_as = True
     save_on_top = True
     list_per_page = 12
-    inlines = ['SizesInline', 'ImagesInline']
-
+    inlines = [SizesInline, ImagesInline]
 
     def get_image(self, obj):
         return mark_safe(f'<img src="{obj.image.url}" height=50')
