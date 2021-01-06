@@ -46,6 +46,10 @@ class ReasonsListSerializer(serializers.ModelSerializer):
 
 class CategoryListSerializer(serializers.ModelSerializer):
     """Категории список"""
+    miniature = serializers.SerializerMethodField('get_miniature_url')
+
+    def get_miniature_url(self, obj):
+        return obj.miniature.url
 
     class Meta:
         model = Category
@@ -54,6 +58,10 @@ class CategoryListSerializer(serializers.ModelSerializer):
 
 class SortListSerializer(serializers.ModelSerializer):
     """Сорта список"""
+    miniature = serializers.SerializerMethodField('get_miniature_url')
+
+    def get_miniature_url(self, obj):
+        return obj.miniature.url
 
     class Meta:
         model = Sort
@@ -70,6 +78,41 @@ class ProductListSerializer(serializers.ModelSerializer):
         model = Product
         exclude = ('images', 'short_description', 'description', 'future', 'visible_on_home_page', 'order',
                    'seller', 'public', 'views', 'pub_date', 'update')
+
+
+class CategoryDetailSerializer(serializers.ModelSerializer):
+    """Категория детали"""
+    image = serializers.SerializerMethodField('get_image_url')
+    products = ProductListSerializer(many=True)
+
+    def get_image_url(self, obj):
+        return obj.image.url
+
+    class Meta:
+        model = Category
+        exclude = ('miniature', 'order', 'cities', 'show_on_home_page')
+
+
+class SortDetailSerializer(serializers.ModelSerializer):
+    """Сорт детали"""
+    image = serializers.SerializerMethodField('get_image_url')
+    products = ProductListSerializer(many=True)
+
+    def get_image_url(self, obj):
+        return obj.image.url
+
+    class Meta:
+        model = Sort
+        exclude = ('description', 'miniature', 'order')
+
+
+class ReasonsDetailSerializer(serializers.ModelSerializer):
+    """Повод детали"""
+    products = ProductListSerializer(many=True)
+
+    class Meta:
+        model = Reason
+        exclude = ('order',)
 
 
 class SizeSerializer(serializers.ModelSerializer):
