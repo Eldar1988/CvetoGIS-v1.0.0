@@ -18,14 +18,20 @@ export default {
     setHomeData(state, data) {
       state.HomeInfo = data.homePageInfo
       state.slides = data.slides
+      state.homeCategories= data.categories
+      state.homeProducts = data.products
     }
   },
   state: {
     HomeInfo: {},
-    slides: []
+    slides: [],
+    homeCategories: [],
+    homeProducts: []
   },
   getters: {
     getHomeInfo: (state) => state.HomeInfo,
-    getSlides: (state) => state.slides
+    getSlides: (state) => state.slides,
+    getHomeCategories: (state) => state.homeCategories,
+    getHomeProducts: (state) => state.homeProducts
   }
 }

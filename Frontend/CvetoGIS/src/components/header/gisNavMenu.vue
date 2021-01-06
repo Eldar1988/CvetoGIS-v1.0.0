@@ -56,7 +56,7 @@
     <div class="q-mt-md text-weight-bold">
       <q-toolbar class="bg-grey-3 text-dark text-uppercase q-mb-sm">
         <q-toolbar-title class="text-weight-bold text-h6">
-          Сорта
+          Цветы
         </q-toolbar-title>
       </q-toolbar>
       <q-list class="rounded-borders text-primary">

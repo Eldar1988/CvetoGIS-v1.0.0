@@ -21,7 +21,9 @@
       </q-toolbar>
     </q-header>
 
-    <q-page-container style="padding-top: 50px !important;">
+    <q-page-container
+      style="padding-top: 70px !important; margin: 0 10px"
+    >
       <router-view/>
     </q-page-container>
 
@@ -38,6 +40,7 @@
       <gis-drawer-content/>
     </q-drawer>
 
+    <gis-added-to-cart-dialog />
   </q-layout>
 </template>
 
@@ -48,10 +51,11 @@ import gisCurrency from "components/header/gisCurrency";
 import GisDrawerContent from "components/header/gisDrawerContent";
 import GisCities from "components/header/gisCities";
 import GisLogoIcon from "components/header/gisLogoIcon";
+import GisAddedToCartDialog from "components/shop/gisAddedToCartDialog";
 
 export default {
   name: 'MainLayout',
-  components: {GisLogoIcon, GisCities, GisDrawerContent, gisCurrency, GisCallBack},
+  components: {GisAddedToCartDialog, GisLogoIcon, GisCities, GisDrawerContent, gisCurrency, GisCallBack},
   data() {
     return {
       right: false

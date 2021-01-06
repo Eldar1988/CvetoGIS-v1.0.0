@@ -60,7 +60,7 @@ export default {
         this.$store.dispatch('fetchHomeData', city.slug)
         this.$router.push(`/`)
       } else {
-        this.$router.push(`/${city.slug}`)
+        this.$router.push(`/city/${city.slug}`)
       }
       let cart = []
       localStorage.setItem('cart', JSON.stringify(cart))

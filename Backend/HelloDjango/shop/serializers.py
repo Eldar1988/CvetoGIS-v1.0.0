@@ -70,13 +70,17 @@ class SortListSerializer(serializers.ModelSerializer):
 
 class ProductListSerializer(serializers.ModelSerializer):
     """Список товаров"""
-    sort = SortListSerializer(many=True, read_only=True)
+    sort = serializers.SlugRelatedField(slug_field='title', read_only=True, many=True)
     reasons = serializers.SlugRelatedField(slug_field='title', read_only=True, many=True)
     cities = serializers.SlugRelatedField(slug_field='title', read_only=True, many=True)
+    image = serializers.SerializerMethodField('get_image_url')
+
+    def get_image_url(self, obj):
+        return obj.image.url
 
     class Meta:
         model = Product
-        exclude = ('images', 'short_description', 'description', 'future', 'visible_on_home_page', 'order',
+        exclude = ('short_description', 'description', 'future', 'show_on_home_page', 'order',
                    'seller', 'public', 'views', 'pub_date', 'update')
 
 
