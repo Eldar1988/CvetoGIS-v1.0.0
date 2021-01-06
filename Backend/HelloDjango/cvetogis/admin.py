@@ -3,7 +3,6 @@ from django.utils.safestring import mark_safe
 
 from .models import Contact, Slider, PublicOffer, PrivacyPolicy, ShippingAndPayment
 
-
 admin.site.register(Contact)
 admin.site.register(PublicOffer)
 admin.site.register(PrivacyPolicy)
@@ -20,3 +19,9 @@ class SliderAdmin(admin.ModelAdmin):
         return mark_safe(f'<img src="{obj.image.url}" height=50')
 
     get_image.short_description = 'Изображение'
+
+
+from django.contrib import admin
+
+admin.site.site_title = 'CvetoGIS'
+admin.site.site_header = 'CvetoGIS - администрирование'
