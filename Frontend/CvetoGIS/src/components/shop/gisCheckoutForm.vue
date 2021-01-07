@@ -231,7 +231,7 @@ export default {
   },
   computed: {
     accessToPay()  {
-      return (this.bayerName || this.receiverName) && (this.bayerPhone || this.receiverPhone) && (this.date) && (this.address)
+      return (this.bayerName || this.receiverName) && (this.bayerPhone || this.receiverPhone) && (this.date) && (this.address || this.findOutTheAddress)
     }
   },
   methods: {
