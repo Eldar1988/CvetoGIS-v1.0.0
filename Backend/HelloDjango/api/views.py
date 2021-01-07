@@ -4,7 +4,7 @@ from rest_framework.response import Response
 
 from shop.models import Course, City, DeliveryBranch, Category, Reason, Sort, HomePageInfo, Product
 from shop.serializers import CategoryListSerializer, CitySerializer, CourseSerializer, ReasonsListSerializer, \
-    SortListSerializer, HomeInfoSerializer, ProductListSerializer
+    SortListSerializer, HomeInfoSerializer, ProductListSerializer, ProductDetailSerializer
 
 from cvetogis.models import Slider
 from cvetogis.serializers import SliderSerializer
@@ -56,7 +56,6 @@ class HomePageDataView(APIView):
         categories_serializer = CategoryListSerializer(categories, many=True)
         response_data['categories'] = categories_serializer.data
 
-        # Товары со скидкой - 2 index
         products = Product.objects.filter(show_on_home_page=True, old_price__gt=1, cities__slug=slug, public=True)
         products_serializer = ProductListSerializer(products, many=True)
         response_data['products'] = products_serializer.data
@@ -90,3 +89,18 @@ class HomeProductsByCategoryView(APIView):
                                           category__slug=category, public=True)
         serializer = ProductListSerializer(products, many=True)
         return Response(serializer.data)
+
+
+class ProductDetailView(APIView):
+    """Детали товара"""
+    def get(self, request, slug):
+        response_data = {}
+        product = Product.objects.get(slug=slug)
+        product_serializer = ProductDetailSerializer(product, many=False)
+        response_data['product'] = product_serializer.data
+
+        products = Product.objects.filter(suggest=True, public=True)
+        products_serializer = ProductListSerializer(products, many=True)
+        response_data['products'] = products_serializer.data
+
+        return Response(response_data)
