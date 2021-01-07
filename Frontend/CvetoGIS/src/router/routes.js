@@ -15,6 +15,20 @@ const routes = [
       { path: '', component: () => import('pages/Cart.vue') },
     ]
   },
+  {
+    path: '/shop',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      {path: ':slug', component: () => import('pages/CategoryDetail')}
+    ]
+  },
+  {
+    path: '/product',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      {path: ':slug', component: () => import('pages/ProductDetail')}
+    ]
+  },
 
   // Always leave this as last one,
   // but you can also remove it
