@@ -3,7 +3,7 @@
     <q-header class="bg-primary text-white" style="height: 55px">
       <q-toolbar>
         <!--   Логотип   -->
-        <img src="../assets/logo-white.png" style="width: 150px"/>
+        <img src="../assets/logo-white.png" style="width: 150px; cursor: pointer" @click="goToHome"/>
         <!--   xxxxx   -->
         <q-space/>
         <!--   Обратный звонок   -->
@@ -63,6 +63,18 @@ export default {
   },
   preFetch({store}) {
     return store.dispatch('fetchMainData')
+  },
+  methods: {
+    // Переход на главную страницу
+    goToHome() {
+      let city = JSON.parse(localStorage.getItem('city'))
+      if (city.slug === 'karaganda') {
+        this.$store.dispatch('fetchHomeData', city.slug)
+        this.$router.push(`/`)
+      } else {
+        this.$router.push(`/city/${city.slug}`)
+      }
+    }
   }
 }
 </script>

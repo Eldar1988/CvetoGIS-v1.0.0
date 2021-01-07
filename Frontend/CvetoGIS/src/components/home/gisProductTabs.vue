@@ -43,19 +43,23 @@
     <!--    =======================   -->
     <!--    Товары   -->
     <div class="products-wrapper">
-      <div class="products-grid" v-if="newProducts.length < 1">
+      <div class="row" v-if="newProducts.length < 1">
         <div
-          v-for="product in products" :key="product.id"
-          class="col-12 col-sm-6 col-md-4 col-lg-3">
+          v-for="product in products"
+          :key="product.id"
+          class="col-12 col-sm-6 col-lg-4"
+        >
           <!--   Карточка товара   -->
           <gis-product-card :product="product"/>
           <!--          xxxxx   -->
         </div>
       </div>
-      <div class="products-grid" v-else>
+      <div class="row" v-else>
         <div
-          v-for="product in newProducts" :key="product.id"
-          class="col-12 col-sm-6 col-md-4 col-lg-3">
+          v-for="product in newProducts"
+          :key="product.id"
+          class="col-12 col-sm-6 col-lg-4 q-pa-sm"
+        >
           <!--          Карточка товара   -->
           <gis-product-card :product="product"/>
           <!--   xxxxx   -->
@@ -123,7 +127,6 @@ export default {
       let citySlug = JSON.parse(localStorage.getItem('city')).slug
       this.newProducts = await this.$axios.get(`${this.$store.getters.getServerURL}/shop/home_products_by_category/${citySlug}/${categorySlug}`)
         .then(({data}) => {
-          console.log('data', data)
           return data
         })
     }

@@ -129,6 +129,10 @@ class SizeSerializer(serializers.ModelSerializer):
 
 class ProductImagesSerializer(serializers.ModelSerializer):
     """Дополнительные изображения товара"""
+    image = serializers.SerializerMethodField('get_image_url')
+
+    def get_image_url(self, obj):
+        return obj.image.url
 
     class Meta:
         model = Image
@@ -145,12 +149,17 @@ class SellerSerializer(serializers.ModelSerializer):
 
 class ProductDetailSerializer(serializers.ModelSerializer):
     """Детали товара"""
-    sort = SortListSerializer(many=True, read_only=True)
+    sort = serializers.SlugRelatedField(slug_field='title', read_only=True, many=True)
     category = CategoryListSerializer(many=False, read_only=True)
-    reasons = ReasonsListSerializer(many=False, read_only=True)
+    reasons = serializers.SlugRelatedField(slug_field='title', read_only=True, many=True)
     sizes = SizeSerializer(many=True, read_only=True)
     images = ProductImagesSerializer(many=True, read_only=True)
     seller = SellerSerializer(many=False)
+    cities = serializers.SlugRelatedField(slug_field='title', read_only=True, many=True)
+    image = serializers.SerializerMethodField('get_image_url')
+
+    def get_image_url(self, obj):
+        return obj.image.url
 
     class Meta:
         model = Product

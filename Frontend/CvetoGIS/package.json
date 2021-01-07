@@ -2,7 +2,7 @@
   "name": "cvetogis",
   "version": "0.0.1",
   "description": "Flowers marketplace",
-  "productName": "CvetpGIS",
+  "productName": "CvetoGIS",
   "author": "Eldar Khaibulov",
   "private": true,
   "scripts": {

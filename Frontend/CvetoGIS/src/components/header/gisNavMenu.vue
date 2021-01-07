@@ -42,7 +42,8 @@
             :src="category.miniature"
             no-default-spinner
             class="img-overlay-2 rounded shadow-lt"
-            style="max-height: 50px; width: 100%; object-fit: cover"
+            height="75px"
+
           >
             <div class="image-text-bottom text-dark">
               {{ category.title }}
