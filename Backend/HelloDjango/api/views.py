@@ -99,7 +99,19 @@ class ProductDetailView(APIView):
         product_serializer = ProductDetailSerializer(product, many=False)
         response_data['product'] = product_serializer.data
 
-        products = Product.objects.filter(suggest=True, public=True)
+        return Response(response_data)
+
+
+class AdditionalProductsView(APIView):
+    """Дополнительные товары"""
+    def get(self, request, city, category_id):
+        city = city.split(',')
+        response_data = {}
+        toys = Product.objects.filter(suggest=True, public=True, cities__title__in=city).distinct()
+        toys_serializer = ProductListSerializer(toys, many=True)
+        response_data['toys'] = toys_serializer.data
+
+        products = Product.objects.filter(category_id=category_id, public=True, cities__title__in=city).distinct()
         products_serializer = ProductListSerializer(products, many=True)
         response_data['products'] = products_serializer.data
 

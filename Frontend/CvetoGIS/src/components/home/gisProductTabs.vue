@@ -47,7 +47,7 @@
         <div
           v-for="product in products"
           :key="product.id"
-          class="col-12 col-sm-6 col-lg-4"
+          class="col-12 col-sm-6 col-lg-4 q-pa-sm"
         >
           <!--   Карточка товара   -->
           <gis-product-card :product="product"/>

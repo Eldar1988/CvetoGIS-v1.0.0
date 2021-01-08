@@ -163,4 +163,4 @@ class ProductDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        exclude = ('pub_date', 'update', 'views', 'public', 'order', 'suggest', 'show_on_home_page', 'future')
+        exclude = ('pub_date', 'update', 'views', 'public', 'order', 'show_on_home_page', 'future')

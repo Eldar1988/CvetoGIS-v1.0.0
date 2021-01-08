@@ -11,4 +11,5 @@ urlpatterns = [
     # Товары со скидкой для главной страницы
     path('shop/home_sale_products/<slug:slug>', views.HomeSaleProductsView.as_view()),
     path('product/<slug:slug>', views.ProductDetailView.as_view()),
+    path('additional_products/<city>/<int:category_id>', views.AdditionalProductsView.as_view()),
 ]
