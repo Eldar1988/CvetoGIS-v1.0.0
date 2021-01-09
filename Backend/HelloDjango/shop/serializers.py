@@ -87,7 +87,6 @@ class ProductListSerializer(serializers.ModelSerializer):
 class CategoryDetailSerializer(serializers.ModelSerializer):
     """Категория детали"""
     image = serializers.SerializerMethodField('get_image_url')
-    products = ProductListSerializer(many=True)
 
     def get_image_url(self, obj):
         return obj.image.url
@@ -100,19 +99,17 @@ class CategoryDetailSerializer(serializers.ModelSerializer):
 class SortDetailSerializer(serializers.ModelSerializer):
     """Сорт детали"""
     image = serializers.SerializerMethodField('get_image_url')
-    products = ProductListSerializer(many=True)
 
     def get_image_url(self, obj):
         return obj.image.url
 
     class Meta:
         model = Sort
-        exclude = ('description', 'miniature', 'order')
+        exclude = ('miniature', 'order')
 
 
 class ReasonsDetailSerializer(serializers.ModelSerializer):
     """Повод детали"""
-    products = ProductListSerializer(many=True)
 
     class Meta:
         model = Reason
@@ -151,7 +148,7 @@ class ProductDetailSerializer(serializers.ModelSerializer):
     """Детали товара"""
     sort = serializers.SlugRelatedField(slug_field='title', read_only=True, many=True)
     category = CategoryListSerializer(many=False, read_only=True)
-    reasons = serializers.SlugRelatedField(slug_field='title', read_only=True, many=True)
+    reasons = ReasonsListSerializer(many=True)
     sizes = SizeSerializer(many=True, read_only=True)
     images = ProductImagesSerializer(many=True, read_only=True)
     seller = SellerSerializer(many=False)

@@ -8,18 +8,21 @@
         </q-toolbar-title>
       </q-toolbar>
       <q-list class="rounded-borders text-primary text-weight-bold">
+
         <q-item
           v-for="reason in reasons" :key="reason.id"
           clickable
           v-ripple
           class="text-dark"
-          active-class="primary"
+          exact-active-class="text-secondary"
+          :to="`/reason/${reason.slug}`"
         >
-          <q-item-section avatar>
-            <q-icon :name="reason.icon"/>
-          </q-item-section>
-          <q-item-section>{{ reason.title }}</q-item-section>
+            <q-item-section avatar>
+              <q-icon :name="reason.icon"/>
+            </q-item-section>
+            <q-item-section>{{ reason.title }}</q-item-section>
         </q-item>
+
       </q-list>
     </div>
     <!--    ================   -->
@@ -30,13 +33,14 @@
           Категории
         </q-toolbar-title>
       </q-toolbar>
-      <q-list class="rounded-borders text-primary">
+      <q-list class="rounded-borders">
         <q-item
           v-for="category in categories" :key="category.id"
           clickable
           v-ripple
           class="text-dark"
-          active-class="primary"
+          :to="`/category/${category.slug}`"
+          exact-active-class="text-primary bg-grey-3"
         >
           <q-img
             :src="category.miniature"
@@ -45,7 +49,10 @@
             height="75px"
 
           >
-            <div class="image-text-bottom text-dark">
+            <template v-slot:loading class="full-width">
+              <q-skeleton height="75px" class="full-width" />
+            </template>
+            <div class="image-text-bottom" style="color: inherit">
               {{ category.title }}
             </div>
           </q-img>
@@ -66,7 +73,8 @@
           clickable
           v-ripple
           class="text-dark"
-          active-class="primary"
+          :to="`/sort/${sort.slug}`"
+          exact-active-class="text-secondary"
         >
           <q-avatar class="shadow-lt">
             <q-img
@@ -93,13 +101,40 @@
           clickable
           v-ripple
           class="text-dark"
-          active-class="primary"
-          to=""
+          @click="goToHome"
+          exact-active-class="text-secondary"
         >
           <q-item-section avatar>
             <q-icon name="roofing"/>
           </q-item-section>
           <q-item-section>Главная</q-item-section>
+        </q-item>
+        <!--   О нас   -->
+        <q-item
+          clickable
+          v-ripple
+          class="text-dark"
+          exact-active-class="text-secondary"
+          to="/about"
+        >
+          <q-item-section avatar>
+            <q-icon name="emoji_nature"/>
+          </q-item-section>
+          <q-item-section>О нас</q-item-section>
+        </q-item>
+
+        <!--   Отзывы   -->
+        <q-item
+          clickable
+          v-ripple
+          class="text-dark"
+          to="/testimonials"
+          exact-active-class="text-secondary"
+        >
+          <q-item-section avatar>
+            <q-icon name="mark_chat_read"/>
+          </q-item-section>
+          <q-item-section>Отзывы</q-item-section>
         </q-item>
       </q-list>
     </div>
@@ -124,6 +159,18 @@ export default {
     },
     sorts() {
       return this.$store.getters.getSorts
+    }
+  },
+  methods: {
+    // Переход на главную страницу
+    goToHome() {
+      let city = JSON.parse(localStorage.getItem('city'))
+      if (city.slug === 'karaganda') {
+        this.$store.dispatch('fetchHomeData', city.slug)
+        this.$router.push(`/`)
+      } else {
+        this.$router.push(`/city/${city.slug}`)
+      }
     }
   }
 }

@@ -40,7 +40,7 @@
         </q-tab>
       </q-tabs>
     </div>
-    <!--    =======================   -->
+    <!--   xxxxx   -->
     <!--    Товары   -->
     <div class="products-wrapper">
       <div class="row" v-if="newProducts.length < 1">
@@ -66,7 +66,7 @@
         </div>
       </div>
     </div>
-    <!--    ========================   -->
+    <!--   xxxxx   -->
   </div>
 </template>
 

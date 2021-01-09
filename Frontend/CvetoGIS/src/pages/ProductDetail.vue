@@ -3,25 +3,27 @@
     <section>
       <article>
         <div class="row">
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-lg-6">
             <!--          Слайдер изображений товара   -->
             <gis-product-images-slider :image="product.image" :images="product.images"/>
             <!--          xxxxx   -->
             <!--          Категория   -->
-            <q-img
-              :src="product.category.miniature"
-              no-default-spinner
-              class="img-overlay-2 rounded shadow-lt q-mt-md"
-              height="75px"
-            >
-              <div class="image-text-bottom text-dark text-weight-bold text-uppercase q-mb-sm">
-                {{ product.category.title }}
-              </div>
-            </q-img>
+            <router-link :to="`/category/${product.category.slug}`">
+              <q-img
+                :src="product.category.miniature"
+                no-default-spinner
+                class="img-overlay-2 rounded shadow-lt q-mt-md"
+                height="75px"
+              >
+                <div class="image-text-bottom text-dark text-weight-bold text-uppercase q-mb-sm">
+                  {{ product.category.title }}
+                </div>
+              </q-img>
+            </router-link>
             <!--          xxxxx   -->
           </div>
 
-          <div class="col-12 col-md-6 q-pa-md">
+          <div class="col-12 col-lg-6 q-pa-md">
             <!--          Заголовок   -->
             <h1 class="page-title">
               {{ product.title }}
@@ -37,7 +39,7 @@
             <!--          xxxxx   -->
             <!--          Рейтинг    -->
             <p class="product-description text-weight-bold q-pt-sm">Рейтинг:
-              <q-rating max="5" style="margin-top: -3px" v-model="product.rating" size="24px" color="secondary"/>
+              <q-rating readonly max="5" style="margin-top: -3px" v-model="product.rating" size="24px" color="secondary"/>
             </p>
             <!--          xxxxx   -->
             <!--          Описание   -->
@@ -95,11 +97,25 @@
             <h3 class="product-description text-weight-bold q-mt-sm">
               Подходящие поводы:<br>
               <q-btn
-                v-for="reason in product.reasons" :key="reason"
-                size="sm" :label="reason"
+                v-for="(reason, index) in product.reasons" :key="index"
+                size="sm"
+                :label="reason.title"
                 rounded outline
                 color="secondary"
                 class="q-mr-sm text-weight-bold q-mt-sm"
+                :to="`/reason/${reason.slug}`"
+              />
+            </h3>
+            <!--          xxxxx   -->
+            <!--          Продавец   -->
+            <h3 class="product-description text-weight-bold q-mt-md">
+              Продавец:
+              <q-btn
+                :label="product.seller.title"
+                rounded outline flat
+                color="dark"
+                icon-right="emoji_nature"
+                class="q-mr-sm text-weight-bold"
               />
             </h3>
             <!--          xxxxx   -->
@@ -109,6 +125,7 @@
     </section>
 
     <q-separator inset class="q-mt-md"/>
+
     <!--      Игрушки   -->
     <section class="section" v-if="!product.suggest">
       <gis-sections-title title="Вместе с этим товаром покупают"/>
@@ -135,16 +152,16 @@
           ref="scrollFutureProducts"
           horizontal
           class="full-width q-mt-md"
-          style="height: 450px; width: 100%"
+          style="height: 480px; width: 100%"
           :thumb-style="{ display: 'none' }"
         >
           <div class="row no-wrap">
             <div
-              v-for="toy in toys" :key="toy.id"
+              v-for="(toy, index) in toys" :key="index"
               class="product-wrapper"
               style="width: 300px; padding: 0 4px"
             >
-              <gis-toys-product-card :product="toy" />
+              <gis-toys-product-card :product="toy"/>
             </div>
           </div>
         </q-scroll-area>
@@ -157,46 +174,18 @@
     <!--      Дополнительные товары   -->
     <section class="section">
       <gis-sections-title :title="`Другие ${product.category.title.toLowerCase()}`"/>
-      <div class="q-mt-lg">
-        <!--    Scroll controls   -->
-        <div class="scroll-controls text-center">
-          <q-btn
-            @click="scrollLeft"
-            icon="navigate_before"
-            round
-            color="primary"
-          />
-          <q-btn
-            @click="scrollRight"
-            icon="navigate_next"
-            round
-            color="primary"
-            class="q-ml-sm"
-          />
-        </div>
-        <!--    xxxxx   -->
-        <!--    Scroll Area   -->
-        <q-scroll-area
-          ref="scrollFutureProducts"
-          horizontal
-          class="full-width q-mt-md"
-          style="height: 450px; width: 100%"
-          :thumb-style="{ display: 'none' }"
-        >
-          <div class="row no-wrap">
-            <div
-              v-for="product in products" :key="product.id"
-              class="product-wrapper"
-              style="width: 300px; padding: 0 4px"
-            >
-              <gis-toys-product-card
-                v-if="product.id !== productId"
-                :product="product"
-              />
-            </div>
+      <div class="products-wrapper q-mt-lg">
+        <div class="row">
+          <div
+            v-for="(product, index) in products"
+            :key="index"
+            class="col-12 col-sm-6 col-lg-4 q-pa-sm"
+          >
+            <!--          Карточка товара   -->
+            <gis-product-card :product="product"/>
+            <!--   xxxxx   -->
           </div>
-        </q-scroll-area>
-        <!--    xxxxx   -->
+        </div>
       </div>
     </section>
     <!--      xxxxx   -->
@@ -208,10 +197,11 @@
 import GisProductImagesSlider from "components/product/gisProductImagesSlider";
 import GisSectionsTitle from "components/headers/gisSectionsTitle";
 import GisToysProductCard from "components/shop/gisToysProductCard";
+import GisProductCard from "components/shop/gisProductCard";
 
 export default {
   name: "ProductDetail",
-  components: {GisToysProductCard, GisSectionsTitle, GisProductImagesSlider},
+  components: {GisProductCard, GisToysProductCard, GisSectionsTitle, GisProductImagesSlider},
   data() {
     return {
       toys: [],
@@ -228,22 +218,24 @@ export default {
     },
   },
   watch: {
-    '$route'(){
-      this.loadProduct()
-      this.loadAdditionalProducts()
+    '$route'() {
+      this.loadData()
     }
   },
-  async created() {
-    await this.loadProduct()
-    await this.loadAdditionalProducts()
+  created() {
+    this.loadData()
   },
-  preFetch({store, currentRoute}) {
-    return store.dispatch('fetchProduct', currentRoute.params.slug)
-  },
+  // preFetch({store, currentRoute}) {
+  //   return store.dispatch('fetchProduct', currentRoute.params.slug)
+  // },
   methods: {
     // Товар
+    async loadData() {
+      await this.loadProduct()
+      await this.loadAdditionalProducts()
+    },
     async loadProduct() {
-      this.product = await this.$axios.get(`${this.$store.getters.getServerURL}/product/${this.$route.params.slug}`)
+      this.product = await this.$axios.get(`${this.$store.getters.getServerURL}/product/${this.$route.params.slug}/`)
         .then(({data}) => {
           this.productId = data.product.id
           return data.product
@@ -252,7 +244,8 @@ export default {
     // Дополнительные товары
     async loadAdditionalProducts() {
       let products = {}
-      products = await this.$axios.get(`${this.$store.getters.getServerURL}/additional_products/${this.$store.getters.getProduct.cities}/${this.$store.getters.getProduct.category.id}`)
+      let cityTitle = JSON.parse(localStorage.getItem('city')).title
+      products = await this.$axios.get(`${this.$store.getters.getServerURL}/additional_products/${cityTitle}/${this.product.category.id}/`)
         .then(({data}) => {
           return data
         })

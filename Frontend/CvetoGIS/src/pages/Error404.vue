@@ -1,22 +1,23 @@
 <template>
-  <div class="fullscreen bg-blue text-white text-center q-pa-md flex flex-center">
+  <div class="fullscreen bg-primary text-white text-center q-pa-md flex flex-center">
     <div>
-      <div style="font-size: 30vh">
+      <div style="font-size: 20vh">
         404
       </div>
 
-      <div class="text-h2" style="opacity:.4">
-        Oops. Nothing here...
+      <div class="text-h6" style="opacity:.9">
+        Извините, но запрашиваемая вами страница не найдена
       </div>
 
       <q-btn
-        class="q-mt-xl"
+        class="q-mt-xl q-px-md q-py-sm text-weight-bold"
         color="white"
-        text-color="blue"
+        text-color="secondary"
         unelevated
         to="/"
-        label="Go Home"
-        no-caps
+        icon="home"
+        label="На главную"
+        rounded
       />
     </div>
   </div>

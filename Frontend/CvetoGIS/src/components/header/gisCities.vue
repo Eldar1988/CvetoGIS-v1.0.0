@@ -64,6 +64,7 @@ export default {
       }
       let cart = []
       localStorage.setItem('cart', JSON.stringify(cart))
+      this.$store.dispatch('fetchMainData', city.slug)
     },
 
     // Установление города по слагу

@@ -2,13 +2,13 @@ import axiosInstance from "axios";
 
 export default {
   actions: {
-    fetchMainData({ commit }) {
+    fetchMainData({commit}, slug) {
       return axiosInstance.get(`${this.getters.getServerURL}/`)
-        .then(({ data }) => {
+        .then(({data}) => {
           commit('setMainData', data)
         })
     },
-    setCurrentCurrency ({ commit }, currency) {
+    setCurrentCurrency({commit}, currency) {
       commit('setCurrency', currency)
     }
   },
@@ -21,6 +21,9 @@ export default {
       state.sorts = data.sorts
       state.currentCurrency = data.courses[0]
       state.defaultCity = data.cities[0]
+      state.benefits = data.benefits
+      state.aboutInfo = data.about
+      state.socials = data.socials
     },
     setCurrency(state, currency) {
       state.currentCurrency = currency
@@ -33,7 +36,10 @@ export default {
     reasons: [],
     sorts: [],
     currentCurrency: {},
-    defaultCity: {}
+    defaultCity: {},
+    benefits: [],
+    aboutInfo: {},
+    socials: []
   },
   getters: {
     getCategories: (state) => state.categories,
@@ -42,6 +48,9 @@ export default {
     getReasons: (state) => state.reasons,
     getSorts: (state) => state.sorts,
     getCurrentCurrency: (state) => state.currentCurrency,
-    getDefaultCity: (state) => state.defaultCity
+    getDefaultCity: (state) => state.defaultCity,
+    getBenefits: (state) => state.benefits,
+    getAboutInfo: (state) => state.aboutInfo,
+    getSocials: (state) => state.socials
   }
 }

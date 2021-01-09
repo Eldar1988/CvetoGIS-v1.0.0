@@ -1,15 +1,16 @@
 <template>
   <q-page>
     <!--  Заголовок страницы   -->
-    <section class="q-pa-sm">
-      <gis-page-image-title :obj="category"/>
+    <section>
+      <gis-shop-page-title :title="reason.title" :description="reason.description" :icon-name="reason.icon"/>
     </section>
     <!--  xxxxx   -->
-    <!--  Заглушка   -->
+    <!--    Заглушка   -->
     <section v-if="products.length < 1">
-      <gis-no-products-notice :text="`Извините, в вашем городе закончились ${category.title.toLowerCase()}`"/>
+      <gis-no-products-notice
+        :text="`Извините, мы не нашли ничего подходящего ${reason.title.toLowerCase()} в вашем городе`"/>
     </section>
-    <!--  xxxxx   -->
+    <!--    xxxxx   -->
     <!--    Товары   -->
     <section>
       <div class="products-wrapper q-mt-lg">
@@ -27,22 +28,24 @@
       </div>
     </section>
     <!--   xxxxx   -->
-    <gis-cat-sorts-reasons class="q-mt-xl" />
+    <!--    Категории - Поводы - Цветы-->
+    <gis-cat-sorts-reasons class="q-mt-xl"/>
+    <!--    xxxxx   -->
   </q-page>
 </template>
 
 <script>
+import GisShopPageTitle from "components/headers/gisShopPageTitle";
 import GisProductCard from "components/shop/gisProductCard";
-import GisPageImageTitle from "components/headers/gisPageImageTitle";
-import GisNoProductsNotice from "components/shop/gisNoProductsNotice";
 import GisCatSortsReasons from "components/shop/gisCatSortsReasons";
+import GisNoProductsNotice from "components/shop/gisNoProductsNotice";
 
 export default {
-  name: "CategoryDetail",
-  components: {GisCatSortsReasons, GisNoProductsNotice, GisPageImageTitle, GisProductCard},
+  name: "ReasonDetail",
+  components: {GisNoProductsNotice, GisCatSortsReasons, GisProductCard, GisShopPageTitle},
   data() {
     return {
-      category: {},
+      reason: {},
       products: []
     }
   },
@@ -58,18 +61,17 @@ export default {
     async loadData() {
       let cityId = JSON.parse(localStorage.getItem('city')).id
       let data = {}
-      data = await this.$axios.get(`${this.$store.getters.getServerURL}/category_detail/${this.$route.params.slug}/${cityId}`)
+      data = await this.$axios.get(`${this.$store.getters.getServerURL}/reason_detail/${this.$route.params.slug}/${cityId}`)
         .then(({data}) => {
           return data
         })
-      this.category = data.category
+      this.reason = data.reason
       this.products = data.products
     }
   }
-
 }
 </script>
 
-<style scoped>
+<style lang="sass">
 
 </style>

@@ -8,7 +8,11 @@
           spinner-color="secondary"
           style="max-width: 100%"
           @click="goToProductDetail(product.slug)"
+          height="400px"
         >
+          <template v-slot:loading class="full-width">
+              <q-skeleton height="400px" class="full-width" />
+          </template>
 
           <!--      Рейтинг товара  -->
           <q-rating

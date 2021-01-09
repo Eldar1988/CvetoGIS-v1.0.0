@@ -9,6 +9,12 @@
     <!--    Табы с товарами   -->
     <gis-product-tabs/>
     <!--    xxxxx   -->
+    <!--    Категории - Поводы - Цветы -->
+    <gis-cat-sorts-reasons class="q-mt-lg"/>
+    <!--    xxxxx   -->
+    <!--    Отзывы   -->
+    <gis-testimonials class="section q-pt-lg"/>
+    <!--    xxxxx   -->
   </q-page>
 </template>
 
@@ -16,10 +22,12 @@
 import GisPageTitle from "components/headers/gisPageTitle";
 import GisHomeSlider from "components/home/gisHomeSlider";
 import GisProductTabs from "components/home/gisProductTabs";
+import GisCatSortsReasons from "components/shop/gisCatSortsReasons";
+import GisTestimonials from "components/home/gisTestimonials";
 
 export default {
   name: 'PageIndex',
-  components: {GisProductTabs, GisHomeSlider, GisPageTitle},
+  components: {GisTestimonials, GisCatSortsReasons, GisProductTabs, GisHomeSlider, GisPageTitle},
   preFetch({store, currentRoute}) {
     return store.dispatch('fetchHomeData', currentRoute.params.slug)
   },

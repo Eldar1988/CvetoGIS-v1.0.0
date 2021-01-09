@@ -20,18 +20,21 @@ export default {
       state.slides = data.slides
       state.homeCategories= data.categories
       state.homeProducts = data.products
+      state.testimonials = data.testimonials
     }
   },
   state: {
     HomeInfo: {},
     slides: [],
     homeCategories: [],
-    homeProducts: []
+    homeProducts: [],
+    testimonials: []
   },
   getters: {
     getHomeInfo: (state) => state.HomeInfo,
     getSlides: (state) => state.slides,
     getHomeCategories: (state) => state.homeCategories,
-    getHomeProducts: (state) => state.homeProducts
+    getHomeProducts: (state) => state.homeProducts,
+    getTestimonials: (state) => state.testimonials
   }
 }

@@ -13,7 +13,7 @@
         <gis-cities class="hide-on-mobile"/>
         <!--   xxxxx   -->
         <!--   Выбор валюты   -->
-        <gisCurrency />
+        <gisCurrency/>
         <!--   xxxxx   -->
         <!--   Кнопка управляющая меню   -->
         <q-btn dense flat round size="lg" icon="view_list" @click="right = !right"/>
@@ -25,13 +25,16 @@
       style="padding-top: 70px !important; margin: 0 10px"
     >
       <router-view/>
+      <!--    Footer   -->
+      <gis-footer/>
+      <!--   xxxxx   -->
     </q-page-container>
 
     <q-drawer show-if-above v-model="right" side="right" bordered>
       <q-header class="bg-primary hide-on-desktop" style="height: 55px">
-        <q-toolbar class="" >
+        <q-toolbar class="">
           <q-toolbar-title class="text-uppercase text-weight-bold flex" style="align-items: center">
-            <gis-logo-icon class="q-mr-sm" />
+            <gis-logo-icon class="q-mr-sm"/>
             Меню
           </q-toolbar-title>
           <q-btn flat v-close-popup round dense icon="mdi-close" @click="right = false"/>
@@ -40,7 +43,7 @@
       <gis-drawer-content/>
     </q-drawer>
 
-    <gis-added-to-cart-dialog />
+    <gis-added-to-cart-dialog/>
   </q-layout>
 </template>
 
@@ -52,17 +55,18 @@ import GisDrawerContent from "components/header/gisDrawerContent";
 import GisCities from "components/header/gisCities";
 import GisLogoIcon from "components/header/gisLogoIcon";
 import GisAddedToCartDialog from "components/shop/gisAddedToCartDialog";
+import GisFooter from "components/footer/gisFooter";
 
 export default {
   name: 'MainLayout',
-  components: {GisAddedToCartDialog, GisLogoIcon, GisCities, GisDrawerContent, gisCurrency, GisCallBack},
+  components: {GisFooter, GisAddedToCartDialog, GisLogoIcon, GisCities, GisDrawerContent, gisCurrency, GisCallBack},
   data() {
     return {
       right: false
     }
   },
-  preFetch({store}) {
-    return store.dispatch('fetchMainData')
+  preFetch({store, currentRoute}) {
+    return store.dispatch('fetchMainData', currentRoute.params.slug)
   },
   methods: {
     // Переход на главную страницу

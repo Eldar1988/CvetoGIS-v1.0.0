@@ -80,3 +80,68 @@ class ShippingAndPayment(models.Model):
     class Meta:
         verbose_name = 'Оплата и доставка'
         verbose_name_plural = 'Оплата и доставка'
+
+
+class AboutInfo(models.Model):
+    """Инофрмация о компании"""
+    title = models.CharField('Заголовок', max_length=255, default='О нас')
+    short_info = models.TextField('Краткая информация о компании', max_length=200, help_text='Будет отображаться на главной')
+    info = RichTextUploadingField('Полное описание компании')
+    logo = CloudinaryField('Логотип компании (темный)', folder='cvetogis/logo')
+    requisite = RichTextUploadingField('Реквизиты компании')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'О компании'
+        verbose_name_plural = 'О компании'
+
+
+class Testimonial(models.Model):
+    """Отзывы"""
+    name = models.CharField('Имя', max_length=255)
+    text = models.TextField('Отзыв')
+    rating = models.PositiveSmallIntegerField('Оценка')
+    image = CloudinaryField('Фото', folder='cvetogis/testimonials', null=True, blank=True)
+    pub_date = models.DateTimeField('Дата публикации', auto_now_add=True)
+    public = models.BooleanField('Опубликовать', default=False)
+    show_on_home_page = models.BooleanField('Опубликовать на главной странице', default=False)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
+        ordering = ('-pub_date',)
+
+
+class Benefit(models.Model):
+    """Преимущества компании"""
+    title = models.CharField('Заголовок', max_length=100)
+    text = models.TextField('Текст')
+    icon = models.CharField('Иконка', max_length=50, default='mdi-', help_text='https://materialdesignicons.com/')
+    order = models.PositiveSmallIntegerField('Порядковый номер', null=True, blank=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Преимущество'
+        verbose_name_plural = 'Преимущества'
+        ordering = ('order',)
+
+
+class SocialNetwork(models.Model):
+    """Социальные сети"""
+    title = models.CharField('Название сети', max_length=100)
+    icon = models.CharField('Иконка', default='mdi-', max_length=50, help_text='https://materialdesignicons.com/')
+    url = models.URLField()
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Профиль'
+        verbose_name_plural = 'Профили в соцсетях'

@@ -8,6 +8,10 @@
         height="300px"
         class="product-card-image"
       >
+        <template v-slot:loading class="full-width">
+          <q-skeleton height="300px" class="full-width"/>
+        </template>
+
         <q-btn
           icon="search"
           color="primary"
@@ -44,7 +48,7 @@
           </q-tooltip>
         </p>
         <!--        ======================    -->
-<!--        Добавить в корзину   -->
+        <!--        Добавить в корзину   -->
         <q-card-actions>
           <q-btn
             rounded
@@ -64,7 +68,7 @@
 
 
       </div>
-<!--        xxxxx    -->
+      <!--        xxxxx    -->
     </q-card>
   </article>
 </template>
