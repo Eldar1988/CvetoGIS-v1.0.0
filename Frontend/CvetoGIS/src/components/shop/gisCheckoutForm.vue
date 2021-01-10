@@ -157,22 +157,24 @@
             <h4 class="text-subtitle1 q-mt-lg">Выберите удобный для Вас способ оплаты</h4>
             <h4 class="text-subtitle1 text-weight-bold">Общая сумма к оплате: {{ getSum() }} тенге</h4>
             <div class="pay-methods q-mt-xl">
-              <q-card class="q-pa-sm shadow-lt rounded-35">
-                <h4 class="text-subtitle1 q-pa-sm text-center" style="line-height: 1">Оплата онлайн
-                  банковской картой</h4>
-                <q-img src="https://m.wooppay.com/themes/m_wooppay/gfx/svg/woppayLogoGradientHome.svg" contain
+              <q-card
+                v-for="payment in payments"
+                :key="payment.id"
+                class="q-pa-sm shadow-lt text-center rounded-35 q-mt-lg"
+              >
+                <h4 class="text-subtitle1 q-pa-sm" style="line-height: 1">{{ payment.text }}</h4>
+                <q-img :src="payment.image" contain
                        style="height: 50px; object-fit: contain">
                 </q-img>
-              </q-card>
-              <q-card class="q-pa-sm q-mt-md shadow-lt rounded-35">
-                <h4 class="text-subtitle1 q-pa-sm text-center" style="line-height: 1">Оплата на kaspi.kz по номеру
-                  счета</h4>
-                <q-img src="https://pbs.twimg.com/profile_images/832110850613899265/xLCG_Cp__400x400.jpg" contain
-                       style="height: 50px; object-fit: contain">
-                </q-img>
-              </q-card>
-              <q-card class="q-pa-sm q-mt-md shadow-lt rounded-35">
-                <h4 class="text-subtitle1 q-pa-sm text-center" style="line-height: 1">Оплата наличными курьеру</h4>
+                <q-btn
+                  label="Выбрать"
+                  color="primary"
+                  rounded
+                  class="q-mt-sm text-weight-bold q-px-md"
+                  unelevated
+                  @click="addNewOrder(payment.id)"
+                  :loading="loadingNewOrder"
+                />
               </q-card>
             </div>
             <!--          ===================   -->
@@ -226,12 +228,19 @@ export default {
         months: ['Янв', 'Веф', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
         monthsShort: ['Янв', 'Веф', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек']
       },
-      step: 1
+      step: 1,
+      payments: [],
+      loadingNewOrder: false
     }
   },
   computed: {
     accessToPay()  {
       return (this.bayerName || this.receiverName) && (this.bayerPhone || this.receiverPhone) && (this.date) && (this.address || this.findOutTheAddress)
+    }
+  },
+  watch: {
+    step() {
+      this.loadPaymentMethods()
     }
   },
   methods: {
@@ -245,6 +254,41 @@ export default {
         return this.sum + parseInt(this.deliveryType)
       }
       return this.sum
+    },
+    async loadPaymentMethods() {
+      this.payments = await this.$axios.get(`${this.$store.getters.getServerURL}/orders/payments/`)
+      .then(({data}) => {
+        return data
+      })
+    },
+    async addNewOrder(paymentID) {
+      let order = {}
+      let cart = JSON.parse(localStorage.cart)
+      let quantities = []
+      let products = []
+      let sum = 0
+      cart.forEach((item) => {
+        quantities.push(item.quantity)
+        products.push(item.title)
+        let itemSum = parseInt(item.price) * item.quantity
+        sum += itemSum
+      })
+      this.loadingNewOrder = true
+      order.city = JSON.parse(localStorage.city).id
+      order.payment = paymentID
+      order.name = this.bayerName
+      order.phone = this.bayerPhone
+      order.receiver_name = this.receiverName
+      order.receiver_phone = this.receiverPhone
+      order.address = this.address
+      order.bayer_is_receiver = this.customerIsTheRecipient
+      order.delivery_date = this.date
+      order.quantities = quantities
+      order.products = products
+      order.order_sum = sum
+      order.postcard = this.postCardText
+
+      await fetch(`${this.$store.getters.getServerURL}/`)
     }
   },
   created() {
@@ -258,7 +302,7 @@ export default {
       this.deliveries.push(delivery)
     })
     this.getSum()
-  }
+  },
 }
 </script>
 

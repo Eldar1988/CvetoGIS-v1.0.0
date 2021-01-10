@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import CallBack
-from .serializers import CallBackSerializer
+from .models import CallBack, Order, PaymentMethod
+from .serializers import CallBackSerializer, PaymentMethodsSerializer, OrderSerializer
 
 
 class CallBackView(APIView):
@@ -15,3 +15,15 @@ class CallBackView(APIView):
             return Response(status=201)
 
         return Response(status=400)
+
+
+class PaymentMethodsView(APIView):
+    """Способы оплаты"""
+    def get(self, request):
+        payments = PaymentMethod.objects.all()
+        serializer = PaymentMethodsSerializer(payments, many=True)
+        return Response(serializer.data)
+
+
+class NewOrder(APIView):
+    """"""

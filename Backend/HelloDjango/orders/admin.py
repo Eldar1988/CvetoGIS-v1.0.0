@@ -1,6 +1,10 @@
 from django.contrib import admin
 
-from .models import CallBack
+from .models import CallBack, Order, PaymentMethod
+
+
+admin.site.register(PaymentMethod)
+admin.site.register(Order)
 
 
 @admin.register(CallBack)

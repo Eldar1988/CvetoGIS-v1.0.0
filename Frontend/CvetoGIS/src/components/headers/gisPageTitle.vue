@@ -1,5 +1,5 @@
 <template>
-  <q-card class="q-pa-md rounded shadow-lt text-center">
+  <q-card class="q-pa-md shadow-0 rounded bg-grey-1 text-center">
     <h1 class="page-title">{{ title }}</h1>
   </q-card>
 </template>
