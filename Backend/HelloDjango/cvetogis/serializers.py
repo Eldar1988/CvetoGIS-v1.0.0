@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Slider, AboutInfo, Testimonial, Benefit, SocialNetwork, PrivacyPolicy, PublicOffer
+from .models import Slider, AboutInfo, Testimonial, Benefit, SocialNetwork, PrivacyPolicy, PublicOffer, Contact
 
 
 class SliderSerializer(serializers.ModelSerializer):
@@ -25,6 +25,10 @@ class ShortAboutInfoSerializer(serializers.ModelSerializer):
 
 class FullAboutInfoSerializer(serializers.ModelSerializer):
     """Краткая информация о компании"""
+    logo = serializers.SerializerMethodField('get_logo_url')
+
+    def get_logo_url(self, obj):
+        return obj.logo.url
 
     class Meta:
         model = AboutInfo
@@ -73,4 +77,12 @@ class PublicOfferSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PublicOffer
+        fields = '__all__'
+
+
+class ContactsSerializer(serializers.ModelSerializer):
+    """Контакты"""
+
+    class Meta:
+        model = Contact
         fields = '__all__'

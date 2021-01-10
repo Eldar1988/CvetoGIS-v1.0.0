@@ -13,7 +13,7 @@ export default {
   components: {GisPageTitle},
   data() {
     return {
-      offer: ''
+      offer: {}
     }
   },
   created() {

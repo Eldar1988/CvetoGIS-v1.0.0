@@ -12,7 +12,7 @@ export default {
   components: {GisPageTitle},
   data() {
     return {
-      policy: ''
+      policy: {}
     }
   },
   created() {

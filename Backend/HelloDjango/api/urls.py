@@ -17,6 +17,8 @@ urlpatterns = [
     path('testimonials/', views.TestimonialsView.as_view()),
     path('policy/', views.PrivacyPolicyView.as_view()),
     path('offer/', views.PublicOfferView.as_view()),
+    path('about/', views.AboutView.as_view()),
+    path('contacts/', views.ContactsView.as_view()),
 
     path('', views.MainDataView.as_view()),  # Основная информация для сайта
 ]

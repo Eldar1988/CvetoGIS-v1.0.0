@@ -14,14 +14,14 @@
       <q-card class="text-dark" style="width: 600px; max-width: 80vw;">
         <!--        Верхняя панель   -->
         <q-toolbar class="bg-primary">
-          <gis-logo-icon />
+          <gis-logo-icon/>
           <q-space/>
           <q-btn
             dense flat
             icon="mdi-close"
             color="white"
             rounded
-            v-close-popup/>
+            @click="dialog = false"/>
         </q-toolbar>
         <!--        ================   -->
         <!--        Тело диалогового окна   -->
@@ -33,7 +33,7 @@
           </p>
           <q-form class="q-mt-lg">
             <q-input
-              v-model="name"
+              v-model="callBackData.name"
               label="Ваше имя*"
               :dense="dense"
               class="q-mt-sm shadow-lt rounded-35 q-px-md"
@@ -41,7 +41,7 @@
             />
             <q-input
               type="number"
-              v-model="phone"
+              v-model="callBackData.phone"
               label="Номер телефона*"
               :dense="dense"
               class="q-mt-md shadow-lt rounded-35 q-px-md"
@@ -52,8 +52,10 @@
               color="secondary"
               unelevated rounded
               label="Отправить"
+              @click="sendCallBack"
+              :loading="loading"
             >
-              <q-icon name="mdi-send" color="white" class="q-pl-sm" />
+              <q-icon name="mdi-send" color="white" class="q-pl-sm"/>
             </q-btn>
           </q-form>
         </q-card-section>
@@ -66,6 +68,7 @@
 
 <script>
 import GisLogoIcon from "components/header/gisLogoIcon";
+
 export default {
   name: "gisCallBack",
   components: {GisLogoIcon},
@@ -75,12 +78,60 @@ export default {
       default: 'white'
     }
   },
+  created() {
+    this.$root.$on('callBack', () => this.dialog = !this.dialog)
+  },
   data() {
     return {
       dialog: false,
-      name: '',
-      phone: '',
-      dense: false
+      callBackData: {
+        name: '',
+        phone: '',
+      },
+      dense: false,
+      loading: false
+    }
+  },
+  methods: {
+    async sendCallBack() {
+      if (this.callBackData.name.length < 2) {
+        this.$q.notify({
+          message: 'Необходимо указать Ваше имя*',
+          color: 'secondary'
+        })
+        return null
+      }
+      if (this.callBackData.phone.length < 5) {
+        this.$q.notify({
+          message: 'Необходимо указать номер телефона*',
+          color: 'secondary'
+        })
+        return null
+      }
+      this.loading = true
+      await fetch(`${this.$store.getters.getServerURL}/orders/call_back/`,{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(this.callBackData)
+      }).then(response => {
+        if (response.status === 201) {
+          setTimeout(() => {
+            this.loading = false
+            this.$router.push(
+              '/call_back_thanks'
+            )
+          },1500)
+        } else {
+          this.$q.notify({
+            message: 'Извините, что-то пошло не так. Пожалуйста, попробуйте еще раз*',
+            color: 'secondary'
+          })
+        }
+
+      })
+
     }
   }
 }

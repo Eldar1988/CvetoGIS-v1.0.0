@@ -136,9 +136,64 @@
           </q-item-section>
           <q-item-section>Отзывы</q-item-section>
         </q-item>
+
+        <!--   Контакты   -->
+        <q-item
+          clickable
+          v-ripple
+          class="text-dark"
+          to="/contacts"
+          exact-active-class="text-secondary"
+        >
+          <q-item-section avatar>
+            <q-icon name="place"/>
+          </q-item-section>
+          <q-item-section>Контакты</q-item-section>
+        </q-item>
       </q-list>
     </div>
     <!--   xxxxx   -->
+
+    <!--    Контакты   -->
+    <div class="q-mt-md text-weight-bold">
+      <q-toolbar class="bg-grey-3 text-dark text-uppercase q-mb-sm">
+        <q-toolbar-title class="text-weight-bold text-h6">
+          Контакты
+        </q-toolbar-title>
+      </q-toolbar>
+      <!--    phone   -->
+      <div class="text-center q-pa-sm">
+        <a
+          :href="`tel:${contacts.phone}`"
+          class="text-weight-bold contacts-nav-item block"
+        >
+          <q-icon name="call" size="24px" />
+          {{ contacts.phone }}
+        </a>
+      </div>
+      <!--    whatsapp   -->
+      <div class="text-center q-pa-sm">
+        <a
+          :href="`https://wa.me/${contacts.whatsapp}`"
+          class="text-weight-bold contacts-nav-item block"
+        >
+          <q-icon name="mdi-whatsapp" size="24px" />
+          {{ contacts.whatsapp }}
+        </a>
+      </div>
+      <!--    email   -->
+      <div class="text-center q-pa-sm">
+        <a
+          :href="`mailto:${contacts.email}`"
+          class="text-weight-bold contacts-nav-item block"
+        >
+          <q-icon name="mail" size="24px" />
+          {{ contacts.email }}
+        </a>
+      </div>
+      <div class="q-py-xl"></div>
+    </div>
+<!--    xxxxx   -->
   </nav>
 </template>
 
@@ -159,6 +214,9 @@ export default {
     },
     sorts() {
       return this.$store.getters.getSorts
+    },
+    contacts() {
+      return this.$store.getters.getContacts
     }
   },
   methods: {
@@ -182,6 +240,12 @@ export default {
 
 .q-item__section
   font-size: 16px
+
+.contacts-nav-item
+  font-size: 16px
+  border: 1px solid $dark
+  padding: 10px
+  border-radius: 10px
 
 @media screen and (max-width: 800px)
   .right-menu-wrapper

@@ -22,7 +22,7 @@
       </div>
     </div>
 <!--    xxxxx   -->
-    <footer class="bg-primary rounded q-px-sm q-py-lg gis-footer">
+    <footer class="bg-primary rounded q-px-sm q-py-xl gis-footer">
       <div class="text-center">
 <!--        Logo   -->
         <q-img

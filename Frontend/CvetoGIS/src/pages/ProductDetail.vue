@@ -290,6 +290,8 @@ export default {
         this.addToCardSuccessDialog = true // Показываем диалаоговое окно
         await this.$router.push('/cart')
       }
+      this.$root.$emit('updateCart')
+
     },
     // Скролл вправо
     scrollRight() {

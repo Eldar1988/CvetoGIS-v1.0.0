@@ -71,6 +71,20 @@ const routes = [
       {path: '', component: () => import('pages/PublicOffer.vue')}
     ]
   },
+  {
+    path: '/contacts',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      {path: '', component: () => import('pages/Contacts.vue')}
+    ]
+  },
+  {
+    path: '/call_back_thanks',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      {path: '', component: () => import('pages/thanks/CallBackThanks.vue')}
+    ]
+  },
 
   // Always leave this as last one,
   // but you can also remove it

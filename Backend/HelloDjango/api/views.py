@@ -7,9 +7,9 @@ from shop.serializers import CategoryListSerializer, CitySerializer, CourseSeria
     SortListSerializer, HomeInfoSerializer, ProductListSerializer, ProductDetailSerializer, ReasonsDetailSerializer, \
     CategoryDetailSerializer, SortDetailSerializer
 
-from cvetogis.models import Slider, Testimonial, Benefit, AboutInfo, SocialNetwork, PrivacyPolicy, PublicOffer
+from cvetogis.models import Slider, Testimonial, Benefit, AboutInfo, SocialNetwork, PrivacyPolicy, PublicOffer, Contact
 from cvetogis.serializers import SliderSerializer, TestimonialsSerializer, BenefitsSerializer, ShortAboutInfoSerializer, \
-    SocialNetworksSerializer, PrivacyPolicySerializer, PublicOfferSerializer
+    SocialNetworksSerializer, PrivacyPolicySerializer, PublicOfferSerializer, FullAboutInfoSerializer, ContactsSerializer
 
 
 class MainDataView(APIView):
@@ -49,6 +49,10 @@ class MainDataView(APIView):
         socials = SocialNetwork.objects.all()
         socials_serializer = SocialNetworksSerializer(socials, many=True)
         response_data['socials'] = socials_serializer.data
+
+        contacts = Contact.objects.last()
+        contacts_serializer = ContactsSerializer(contacts, many=False)
+        response_data['contacts'] = contacts_serializer.data
 
         return Response(response_data)
 
@@ -218,4 +222,20 @@ class PublicOfferView(APIView):
     def get(self, request):
         offer = PublicOffer.objects.last()
         serializer = PublicOfferSerializer(offer, many=False)
+        return Response(serializer.data)
+
+
+class AboutView(APIView):
+    """Информация о компании"""
+    def get(self, request):
+        info = AboutInfo.objects.last()
+        serializer = FullAboutInfoSerializer(info, many=False)
+        return Response(serializer.data)
+
+
+class ContactsView(APIView):
+    """Контакты"""
+    def get(self, request):
+        contacts = Contact.objects.last()
+        serializer = ContactsSerializer(contacts, many=False)
         return Response(serializer.data)

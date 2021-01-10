@@ -197,6 +197,8 @@ export default {
         this.addToCardSuccessDialog = true // Показываем диалаоговое окно
         await this.$router.push('/cart')
       }
+
+      this.$root.$emit('updateCart')
     },
     goToProductDetail(slug) {
       this.$router.push(`/product/${slug}`)

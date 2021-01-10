@@ -24,6 +24,7 @@ export default {
       state.benefits = data.benefits
       state.aboutInfo = data.about
       state.socials = data.socials
+      state.contacts = data.contacts
     },
     setCurrency(state, currency) {
       state.currentCurrency = currency
@@ -39,7 +40,8 @@ export default {
     defaultCity: {},
     benefits: [],
     aboutInfo: {},
-    socials: []
+    socials: [],
+    contacts: {}
   },
   getters: {
     getCategories: (state) => state.categories,
@@ -51,6 +53,7 @@ export default {
     getDefaultCity: (state) => state.defaultCity,
     getBenefits: (state) => state.benefits,
     getAboutInfo: (state) => state.aboutInfo,
-    getSocials: (state) => state.socials
+    getSocials: (state) => state.socials,
+    getContacts: (state) => state.contacts
   }
 }
