@@ -27,7 +27,8 @@ SECRET_KEY = '89$w_2xc(u(%s%g-5rt#rp$#(pgppcls=@g&)p3eq4+&uldfl0'
 DEBUG = True
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['192.168.0.199']
+# ALLOWED_HOSTS = ['192.168.0.199']
+ALLOWED_HOSTS = ['192.168.0.155']
 
 # Application definition
 

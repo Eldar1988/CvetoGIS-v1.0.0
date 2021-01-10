@@ -262,18 +262,16 @@ export default {
       })
     },
     async addNewOrder(paymentID) {
+      this.loadingNewOrder = true
       let order = {}
       let cart = JSON.parse(localStorage.cart)
       let quantities = []
       let products = []
-      let sum = 0
+      let sum = this.getSum()
       cart.forEach((item) => {
         quantities.push(item.quantity)
         products.push(item.title)
-        let itemSum = parseInt(item.price) * item.quantity
-        sum += itemSum
       })
-      this.loadingNewOrder = true
       order.city = JSON.parse(localStorage.city).id
       order.payment = paymentID
       order.name = this.bayerName
@@ -283,12 +281,26 @@ export default {
       order.address = this.address
       order.bayer_is_receiver = this.customerIsTheRecipient
       order.delivery_date = this.date
-      order.quantities = quantities
-      order.products = products
+      order.quantities = `${quantities}`
+      order.products = `${products}`
       order.order_sum = sum
       order.postcard = this.postCardText
-
-      await fetch(`${this.$store.getters.getServerURL}/`)
+      await fetch(`${this.$store.getters.getServerURL}/orders/new_order/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(order)
+      }
+      ).then(response => {
+        setTimeout(() => {
+          this.loadingNewOrder = false
+          this.$q.notify({
+            message: 'Ваш заказ принят в обработку',
+            color: 'secondary'
+          }, 1500)
+        })
+      })
     }
   },
   created() {

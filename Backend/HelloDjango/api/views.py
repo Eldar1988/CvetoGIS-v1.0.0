@@ -133,6 +133,7 @@ class AdditionalProductsView(APIView):
 
     def get(self, request, city, category_id):
         city = city.split(',')
+        print(city)
         response_data = {}
         toys = Product.objects.filter(suggest=True, public=True, cities__title__in=city).distinct()
         toys_serializer = ProductListSerializer(toys, many=True)

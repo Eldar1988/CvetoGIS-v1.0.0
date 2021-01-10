@@ -49,7 +49,7 @@ class Order(models.Model):
     phone = models.CharField('Телефон заказчика', max_length=30)
     receiver_name = models.CharField('Имя получателя', max_length=255, null=True, blank=True)
     receiver_phone = models.CharField('Телефон получателя', max_length=30, null=True, blank=True)
-    address = models.TextField('Адрес доставки')
+    address = models.TextField('Адрес доставки', null=True, blank=True)
     bayer_is_receiver = models.BooleanField('Заказчик = получатель', default=False)
     delivery_date = models.CharField('Дата доставки', max_length=200)
     delivery_time = models.CharField('Время доставки', max_length=100, null=True, blank=True)
@@ -64,7 +64,7 @@ class Order(models.Model):
     update = models.DateTimeField('Обновлен', auto_now=True)
 
     def __str__(self):
-        return self.id
+        return self.name
 
     class Meta:
         verbose_name = 'Заказ'

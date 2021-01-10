@@ -26,9 +26,9 @@ class City(models.Model):
     title = models.CharField('Название города', max_length=255)
     slug = models.SlugField(unique=True)
     order = models.PositiveSmallIntegerField('Порядковый номер', null=True, blank=True)
-    address = models.TextField('Адрес магазина в городе', help_text='Вместе с названием города')
-    phone = models.CharField('Номер телефона', max_length=20)
-    whatsapp = models.CharField('Whatsapp', max_length=20, help_text='В формате: 7707*******')
+    address = models.TextField('Адрес магазина в городе', null=True, blank=True, help_text='Вместе с названием города')
+    phone = models.CharField('Номер телефона', max_length=20, blank=True, null=True)
+    whatsapp = models.CharField('Whatsapp', max_length=20, help_text='В формате: 7707*******', null=True, blank=True)
 
     def __str__(self):
         return self.title

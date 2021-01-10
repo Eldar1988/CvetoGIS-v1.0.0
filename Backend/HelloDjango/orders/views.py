@@ -26,4 +26,13 @@ class PaymentMethodsView(APIView):
 
 
 class NewOrder(APIView):
-    """"""
+    """Новый заказ"""
+    def post(self, request):
+        serializer = OrderSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=201)
+        print(serializer.errors)
+
+        return Response(status=400)
+
