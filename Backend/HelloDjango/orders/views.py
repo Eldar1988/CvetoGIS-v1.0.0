@@ -5,6 +5,8 @@ from rest_framework.views import APIView
 from .models import CallBack, Order, PaymentMethod
 from .serializers import CallBackSerializer, PaymentMethodsSerializer, OrderSerializer
 
+from .functions import get_order_products
+
 
 class CallBackView(APIView):
     """Заявки на обратный звонок"""
@@ -31,8 +33,8 @@ class NewOrder(APIView):
         serializer = OrderSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
+            get_order_products(serializer)
             return Response(status=201)
-        print(serializer.errors)
 
         return Response(status=400)
 

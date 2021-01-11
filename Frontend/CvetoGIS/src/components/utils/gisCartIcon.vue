@@ -31,7 +31,7 @@ export default {
       cartLen: 0
     }
   },
-  created() {
+  mounted() {
     if(localStorage.getItem('cart') !== null) {
       this.cartLen = JSON.parse(localStorage.cart).length
     }

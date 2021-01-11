@@ -16,9 +16,9 @@ export default function (/* { ssrContext } */) {
       productDetail
     },
     state: {
-      serverURL: 'http://192.168.0.155:8000',
+      // serverURL: 'http://192.168.0.155:8000',
       // serverURL: 'http://192.168.0.199:8000',
-      // serverURL: 'https://api.cvetogis.kz',
+      serverURL: 'https://api.cvetogis.kz',
     },
     getters: {
       getServerURL(state) {

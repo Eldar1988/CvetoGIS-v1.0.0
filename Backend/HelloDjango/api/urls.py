@@ -10,7 +10,7 @@ urlpatterns = [
     # Товары со скидкой для главной страницы
     path('shop/home_sale_products/<slug:slug>/', views.HomeSaleProductsView.as_view()),
     path('product/<slug:slug>/', views.ProductDetailView.as_view()),
-    path('additional_products/<city>/<int:category_id>/', views.AdditionalProductsView.as_view()),
+    path('additional_products/<int:city>/<int:category_id>/', views.AdditionalProductsView.as_view()),
     path('reason_detail/<slug:slug>/<int:city_id>/', views.ReasonDetailView.as_view()),
     path('category_detail/<slug:slug>/<int:city_id>', views.CategoryDetailView.as_view()),
     path('sort_detail/<slug:slug>/<int:city_id>/', views.SortDetailView.as_view()),

@@ -108,7 +108,10 @@
             </h3>
             <!--          xxxxx   -->
             <!--          Продавец   -->
-            <h3 class="product-description text-weight-bold q-mt-md">
+            <div
+              v-if="product.seller"
+              class="product-description text-weight-bold q-mt-md"
+            >
               Продавец:
               <q-btn
                 :label="product.seller.title"
@@ -117,7 +120,7 @@
                 icon-right="emoji_nature"
                 class="q-mr-sm text-weight-bold"
               />
-            </h3>
+            </div>
             <!--          xxxxx   -->
           </div>
         </div>
@@ -243,9 +246,11 @@ export default {
     },
     // Дополнительные товары
     async loadAdditionalProducts() {
+      let cityID = JSON.parse(localStorage.getItem('city')).id
+      console.log(`${this.$store.getters.getServerURL}/additional_products/${cityID}/${this.product.category.id}/`)
       let products = {}
-      let cityTitle = JSON.parse(localStorage.getItem('city')).title
-      products = await this.$axios.get(`${this.$store.getters.getServerURL}/additional_products/${cityTitle}/${this.product.category.id}/`)
+
+      products = await this.$axios.get(`${this.$store.getters.getServerURL}/additional_products/${cityID}/${this.product.category.id}/`)
         .then(({data}) => {
           return data
         })
