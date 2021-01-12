@@ -17,8 +17,8 @@
       <!--        ===================   -->
       <!--      Кнопки корзины   -->
       <q-card-actions class="row justify-center">
-        <q-btn rounded outline class="q-px-md q-mt-md text-weight-bold" to="/cart" icon-right="forward">Перейти в корзину</q-btn>
-        <q-btn rounded class="q-px-md q-mt-md text-weight-bold shadow-lt" v-close-popup>Продолжить покупки</q-btn>
+        <q-btn outline class="q-px-md q-mt-md text-weight-bold rounded" to="/cart" icon-right="forward">Перейти в корзину</q-btn>
+        <q-btn flat class="q-px-md q-mt-md text-weight-bold rounded" v-close-popup>Продолжить покупки</q-btn>
       </q-card-actions>
     </q-card>
   </q-dialog>

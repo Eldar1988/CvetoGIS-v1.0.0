@@ -1,12 +1,15 @@
 <template>
-<q-page>
-  <gis-page-title :title="policy.title" />
-  <div class="q-mt-xl" v-html="policy.text"></div>
-</q-page>
+  <q-page>
+    <div style="padding: 5px">
+      <gis-page-title :title="policy.title"/>
+    </div>
+    <div class="q-pt-xl page-container" v-html="policy.text"></div>
+  </q-page>
 </template>
 
 <script>
 import GisPageTitle from "components/headers/gisPageTitle";
+
 export default {
   name: "PrivacyPolicy",
   components: {GisPageTitle},
@@ -15,7 +18,7 @@ export default {
       policy: {}
     }
   },
-  created() {
+  mounted() {
     this.loadPolicy()
   },
   methods: {

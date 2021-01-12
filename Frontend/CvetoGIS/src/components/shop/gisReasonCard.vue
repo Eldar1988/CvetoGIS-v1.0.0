@@ -2,12 +2,12 @@
   <article v-if="reason !== null">
     <router-link :to="`/reason/${reason.slug}`">
       <q-card
-        class="rounded shadow-lt flex flex-center bg-accent"
-        style="height: 120px"
+        class="rounded shadow-0 flex flex-center bg-accent"
+        style="height: 70px"
       >
           <div class="reason-card-title text-center">
-            <q-icon :name="reason.icon" size="lg" />
-            <p class="text-h6 text-weight-bold">{{ reason.title }}</p>
+            <q-icon :name="reason.icon" size="sm" />
+            <p style="font-size: 13px" class="text-weight-bold">{{ reason.title }}</p>
           </div>
           <template
             class="full-width"

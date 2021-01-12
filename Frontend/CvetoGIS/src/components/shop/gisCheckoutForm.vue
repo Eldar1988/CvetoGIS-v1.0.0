@@ -5,101 +5,107 @@
       <div class="col-12 col-lg-6" style="padding: 5px">
         <q-card bordered class="shadow-0 q-pa-sm rounded">
           <h3 class="q-py-lg text-center text-h6 text-weight-bold">Форма заказа</h3>
-          <div class="row">
-            <!--            Имя заказчика   -->
-            <div class="col-12 col-md-6 q-pa-sm">
-              <q-input rounded class="shadow-lt rounded-35 q-pl-md" borderless v-model="bayerName" label="Ваше имя*"/>
-            </div>
-            <!--            ===============   -->
-            <!--            Номер телефона заказчика   -->
-            <div class="col-12 col-md-6 q-pa-sm">
-              <q-input type="number" rounded class="shadow-lt rounded-35 q-pl-md" borderless v-model="bayerPhone"
-                       label="Ваш номер телефона*"/>
-            </div>
-            <!--             ==========================   -->
-            <!--            Чекбоксы   -->
-            <div class="col-12 col-md-6 q-pa-sm">
-              <q-checkbox v-model="customerIsTheRecipient" label="Я сам получу цветы"/>
-            </div>
-            <div class="col-12 col-md-6 q-pa-sm">
-              <q-checkbox v-model="findOutTheAddress" label="Узнать адрес у получателя" @click="findAddress"/>
-            </div>
-            <!--            ======================   -->
-            <!--            Адрес доставки   -->
-            <q-slide-transition>
-              <div class="col-12 q-px-sm" v-if="!findOutTheAddress">
-                <q-input rounded class="shadow-lt rounded-35 q-pl-md" borderless v-model="address"
-                         label="Адрес доставки*"/>
+          <q-form>
+            <div class="row">
+              <!--            Имя заказчика   -->
+              <div class="col-12 col-md-6 q-pa-sm">
+                <q-input class="shadow-lt rounded q-pl-md" name="name" borderless v-model="bayerName" label="Ваше имя*"
+                         autocomplete type="text"/>
               </div>
-            </q-slide-transition>
-            <!--            ==========================   -->
-            <q-separator class="q-mt-lg"/>
-            <!--            Данные получателя   -->
-            <q-slide-transition>
-              <div v-if="!customerIsTheRecipient" class="col-12 q-mt-lg">
-                <div class="row">
-                  <!--            Имя получателя   -->
-                  <div class="col-12 col-md-6 q-pa-sm">
-                    <q-input rounded class="shadow-lt rounded-35 q-pl-md" borderless v-model="receiverName"
-                             label="Имя получателя*"/>
-                  </div>
-                  <!--                  ======================   -->
-                  <!--                  Телефон получателя   -->
-                  <div class="col-12 col-md-6 q-pa-sm">
-                    <q-input type="number" rounded class="shadow-lt rounded-35 q-pl-md" borderless
-                             v-model="receiverPhone" label="Телефон получателя*"/>
-                  </div>
-                  <!--                  ============================= -->
+              <!--            ===============   -->
+              <!--            Номер телефона заказчика   -->
+              <div class="col-12 col-md-6 q-pa-sm">
+                <q-input mask="#-###-###-####" class="shadow-lt rounded q-pl-md" borderless v-model="bayerPhone"
+                         label="Ваш номер телефона*" name="phone" autocomplete type="tel"/>
+              </div>
+              <!--             ==========================   -->
+              <!--            Чекбоксы   -->
+              <div class="col-12 col-md-6 q-pa-sm">
+                <q-checkbox v-model="customerIsTheRecipient" label="Я сам получу цветы"/>
+              </div>
+              <div class="col-12 col-md-6 q-pa-sm">
+                <q-checkbox v-model="findOutTheAddress" label="Узнать адрес у получателя" @click="findAddress"/>
+              </div>
+              <!--            ======================   -->
+              <!--            Адрес доставки   -->
+              <q-slide-transition>
+                <div class="col-12 q-px-sm" v-if="!findOutTheAddress">
+                  <q-input class="shadow-lt rounded q-pl-md" borderless v-model="address"
+                           label="Адрес доставки*"/>
                 </div>
+              </q-slide-transition>
+              <!--            ==========================   -->
+              <q-separator class="q-mt-lg"/>
+              <!--            Данные получателя   -->
+              <q-slide-transition>
+                <div v-if="!customerIsTheRecipient" class="col-12 q-mt-lg">
+                  <div class="row">
+                    <!--            Имя получателя   -->
+                    <div class="col-12 col-md-6 q-pa-sm">
+                      <q-input class="shadow-lt rounded q-pl-md" borderless v-model="receiverName"
+                               label="Имя получателя*"/>
+                    </div>
+                    <!--                  ======================   -->
+                    <!--                  Телефон получателя   -->
+                    <div class="col-12 col-md-6 q-pa-sm">
+                      <q-input rounded class="shadow-lt rounded q-pl-md" borderless mask="#-###-###-####"
+                               v-model="receiverPhone" label="Телефон получателя*"/>
+                    </div>
+                    <!--                  ============================= -->
+                  </div>
+                </div>
+              </q-slide-transition>
+
+              <!--            Дата и время доставки   -->
+              <div class="col-12 q-pa-sm">
+                <p class="text-center text-grey-8 q-pt-md">Дата и время доставки*</p>
+                <q-input class="shadow-lt rounded q-px-md q-mt-sm" borderless v-model="date" rounded>
+                  <template v-slot:prepend>
+                    <q-icon name="event" class="cursor-pointer">
+                      <q-popup-proxy transition-show="scale" transition-hide="scale">
+                        <q-date v-model="date" mask="DD-MM-YYYY время HH:mm" navigation-min-year-month="2020/01"
+                                today-btn
+                                title="Дата доставки" :locale="myLocale">
+                          <div class="row items-center justify-end">
+                            <q-btn v-close-popup label="Ок" color="primary" flat/>
+                          </div>
+                        </q-date>
+                      </q-popup-proxy>
+                    </q-icon>
+                  </template>
+
+                  <template v-slot:append>
+                    <q-icon name="access_time" class="cursor-pointer">
+                      <q-popup-proxy transition-show="scale" transition-hide="scale">
+                        <q-time v-model="date" mask="DD-MM-YYYY время HH:mm" format24h>
+                          <div class="row items-center justify-end">
+                            <q-btn v-close-popup label="Ok" color="primary" flat/>
+                          </div>
+                        </q-time>
+                      </q-popup-proxy>
+                    </q-icon>
+                  </template>
+                </q-input>
+                <p class="small text-center text-secondary q-pt-md">Доставка возможна не ранее, чем через час после
+                  оформления заказа</p>
+
               </div>
-            </q-slide-transition>
-
-            <!--            Дата и время доставки   -->
-            <div class="col-12 q-pa-sm">
-              <p class="text-center text-grey-8 q-pt-md">Дата и время доставки*</p>
-              <q-input class="shadow-lt rounded-35 q-px-md q-mt-sm" borderless v-model="date" rounded>
-                <template v-slot:prepend>
-                  <q-icon name="event" class="cursor-pointer">
-                    <q-popup-proxy transition-show="scale" transition-hide="scale">
-                      <q-date v-model="date" mask="DD-MM-YYYY время HH:mm" navigation-min-year-month="2020/01" today-btn
-                              title="Дата доставки" :locale="myLocale">
-                        <div class="row items-center justify-end">
-                          <q-btn v-close-popup label="Ок" color="primary" flat/>
-                        </div>
-                      </q-date>
-                    </q-popup-proxy>
-                  </q-icon>
-                </template>
-
-                <template v-slot:append>
-                  <q-icon name="access_time" class="cursor-pointer">
-                    <q-popup-proxy transition-show="scale" transition-hide="scale">
-                      <q-time v-model="date" mask="DD-MM-YYYY время HH:mm" format24h>
-                        <div class="row items-center justify-end">
-                          <q-btn v-close-popup label="Ok" color="primary" flat/>
-                        </div>
-                      </q-time>
-                    </q-popup-proxy>
-                  </q-icon>
-                </template>
-              </q-input>
-              <p class="small text-center text-secondary q-pt-md">Доставка возможна не ранее, чем через час после
-                оформления заказа</p>
-
-            </div>
-            <!--            =========================   -->
-            <!--            Открытка   -->
-            <div class="col-12 q-pa-sm">
-              <q-checkbox v-model="postCard" label="Добавить открытку"/>
-            </div>
-            <q-slide-transition>
-              <div class="col-12 q-pa-sm" v-if="postCard">
-                <q-input type="textarea" rounded class="shadow-lt rounded-35 q-pl-md" borderless v-model="postCardText"
-                         label="Текст на открытке"/>
+              <!--            =========================   -->
+              <!--            Открытка   -->
+              <div class="col-12 q-pa-sm">
+                <q-checkbox v-model="postCard" label="Добавить открытку"/>
               </div>
-            </q-slide-transition>
-            <!--            ====================   -->
-          </div>
+              <q-slide-transition>
+                <div class="col-12 q-pa-sm" v-if="postCard">
+                  <q-input type="textarea" class="shadow-lt rounded q-pl-md" borderless
+                           v-model="postCardText"
+                           label="Текст на открытке"/>
+                </div>
+              </q-slide-transition>
+              <!--            ====================   -->
+            </div>
+          </q-form>
+
         </q-card>
       </div>
       <!--      =====================   -->
@@ -153,43 +159,45 @@
               :done="step > 2"
             >
               <div class="steep-2">
-            <!--          Оплата   -->
-            <h4 class="text-subtitle1 q-mt-lg">Выберите удобный для Вас способ оплаты</h4>
-            <h4 class="text-subtitle1 text-weight-bold">Общая сумма к оплате: {{ getSum() }} тенге</h4>
-            <div class="pay-methods q-mt-xl">
-              <q-card
-                v-for="payment in payments"
-                :key="payment.id"
-                class="q-pa-sm shadow-lt text-center rounded-35 q-mt-lg"
-              >
-                <h4 class="text-subtitle1 q-pa-sm" style="line-height: 1">{{ payment.text }}</h4>
-                <q-img :src="payment.image" contain
-                       style="height: 50px; object-fit: contain">
-                </q-img>
-                <q-btn
-                  label="Выбрать"
-                  color="primary"
-                  rounded
-                  class="q-mt-sm text-weight-bold q-px-md"
-                  unelevated
-                  @click="addNewOrder(payment.id)"
-                  :loading="loadingNewOrder"
-                />
-              </q-card>
-            </div>
-            <!--          ===================   -->
+                <!--          Оплата   -->
+                <h4 class="text-subtitle1 q-mt-lg">Выберите удобный для Вас способ оплаты</h4>
+                <h4 class="text-subtitle1 text-weight-bold">Общая сумма к оплате: {{ getSum() }} тенге</h4>
+                <div class="pay-methods q-mt-xl">
+                  <q-card
+                    v-for="payment in payments"
+                    :key="payment.id"
+                    class="q-pa-sm shadow-lt text-center rounded q-mt-lg"
+                  >
+                    <h4 class="text-subtitle1 q-pa-sm" style="line-height: 1">{{ payment.text }}</h4>
+                    <q-img :src="payment.image" contain
+                           style="height: 30px; object-fit: contain">
+                    </q-img>
+                    <q-btn
+                      label="Выбрать"
+                      color="primary"
+                      class="q-mt-sm text-weight-bold q-px-md rounded"
+                      unelevated
+                      @click="addNewOrder(payment.id)"
+                      :loading="loadingNewOrder"
+                    />
+                  </q-card>
+                </div>
+                <!--          ===================   -->
               </div>
             </q-step>
-            <template
-              v-if="accessToPay"
-              v-slot:navigation
-              class="q-mt-lg"
-            >
-              <q-stepper-navigation class="text-center q-mt-sm">
-                <q-btn v-if="step < 2" icon-right="forward" rounded class="q-px-md q-py-sm text-weight-bold shadow-lt" @click="$refs.stepper.next()" color="primary" :label="step === 2 ? '' : 'Перейти к оплате'" />
-                <q-btn v-if="step > 1" flat color="primary" class="q-px-md q-py-sm text-weight-bold" @click="$refs.stepper.previous()" label="Назад" />
-              </q-stepper-navigation>
-            </template>
+              <template
+                v-if="accessToPay"
+                v-slot:navigation
+                class="q-mt-lg"
+              >
+                <q-stepper-navigation class="text-center q-mt-sm">
+                  <q-btn v-if="step < 2" icon-right="forward"
+                         class="q-px-md q-py-sm text-weight-bold shadow-0 rounded full-width"
+                         @click="$refs.stepper.next()" color="primary" :label="step === 2 ? '' : 'Перейти к оплате'"/>
+                  <q-btn v-if="step > 1" flat color="primary" class="q-px-md q-py-sm text-weight-bold rounded"
+                         @click="$refs.stepper.previous()" label="Назад"/>
+                </q-stepper-navigation>
+              </template>
           </q-stepper>
         </q-card>
       </div>
@@ -234,7 +242,7 @@ export default {
     }
   },
   computed: {
-    accessToPay()  {
+    accessToPay() {
       return (this.bayerName || this.receiverName) && (this.bayerPhone || this.receiverPhone) && (this.date) && (this.address || this.findOutTheAddress)
     }
   },
@@ -257,9 +265,9 @@ export default {
     },
     async loadPaymentMethods() {
       this.payments = await this.$axios.get(`${this.$store.getters.getServerURL}/orders/payments/`)
-      .then(({data}) => {
-        return data
-      })
+        .then(({data}) => {
+          return data
+        })
     },
     async addNewOrder(paymentID) {
       this.loadingNewOrder = true
@@ -286,12 +294,12 @@ export default {
       order.order_sum = sum
       order.postcard = this.postCardText
       await fetch(`${this.$store.getters.getServerURL}/orders/new_order/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(order)
-      }
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(order)
+        }
       ).then(response => {
         setTimeout(() => {
           this.loadingNewOrder = false

@@ -1,33 +1,30 @@
 <template>
-  <q-page>
-    <article>
+  <div>
+    <div style="padding: 5px">
       <gis-page-title :title="about.title"/>
+    </div>
+    <article class="page-container">
+
       <div class="q-mt-xl" v-html="about.info"></div>
-      <div class="about-logo text-center">
+      <div class="about-logo text-center q-mt-xl">
         <q-img :src="about.logo" width="300px" class="q-my-lg"/>
       </div>
-      <gis-sections-title class="q-mt-xl" title="Наши реквизиты:" />
-      <div
-        v-html="about.requisite"
-        style="max-width: 500px; margin: 25px auto"
-      ></div>
     </article>
-  </q-page>
+  </div>
 </template>
 
 <script>
 import GisPageTitle from "components/headers/gisPageTitle";
-import GisSectionsTitle from "components/headers/gisSectionsTitle";
 
 export default {
   name: "About",
-  components: {GisSectionsTitle, GisPageTitle},
+  components: {GisPageTitle},
   data() {
     return {
       about: ''
     }
   },
-  created() {
+  mounted() {
     this.loadAboutInfo()
   },
   methods: {

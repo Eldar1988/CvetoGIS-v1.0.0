@@ -1,11 +1,12 @@
 <template>
 <div class="text-center">
   <q-btn
-    round outline
+    outline
     :color="color"
     :padding="padding"
     icon="shopping_cart"
-    class="shadow-1"
+    class=""
+    :flat="flat"
     to="/cart"
   >
     <q-badge color="secondary" floating>{{ cartLen }}</q-badge>
@@ -24,6 +25,10 @@ export default {
     padding: {
       type: String,
       default: '10px'
+    },
+    flat: {
+      type: Boolean,
+      default: true
     }
   },
   data() {

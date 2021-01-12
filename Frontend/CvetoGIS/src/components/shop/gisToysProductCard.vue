@@ -1,7 +1,7 @@
 <template>
   <article>
     <q-card
-      class="rounded shadow-lt"
+      class="rounded shadow-0 border-grey"
     >
       <q-img
         :src="product.image"
@@ -33,14 +33,14 @@
         </q-rating>
         <!--      ================   -->
       </q-img>
-      <div class="toy-info" style="padding: 5px">
-        <h5 class="text-h6 text-weight-bold ellipsis text-center">
+      <div class="toy-info" style="padding: 5px; z-index: 5555">
+        <h5 class="product-card-title text-weight-bold ellipsis text-center" >
           {{ product.title }}
         </h5>
         <!--        Цена товара   -->
-        <p class="text-h6 text-primary relative-position text-center q-pt-sm text-weight-bold">
+        <p class="product-card-price text-primary relative-position text-center q-pt-sm text-weight-bold">
           {{ getPrice(product.price) }}
-          <q-icon :name="priceIcon" color="primary" size="16px"/>
+          <q-icon :name="priceIcon" color="primary" size="16px" style="margin-left: -6px; margin-top: -3px"/>
           <span class="old-price" v-if="product.old_price">{{ getPrice(product.old_price) }}
           </span>
           <q-tooltip content-class="bg-primary" content-style="font-size: 14px" :offset="[10, -60]">
@@ -51,12 +51,11 @@
         <!--        Добавить в корзину   -->
         <q-card-actions>
           <q-btn
-            rounded
             color="secondary"
             icon="mdi-cart-arrow-down"
             size="md"
             @click="addToCart(product, 1, true)"
-            class="q-mt-sm full-width text-weight-bold"
+            class="q-mt-sm full-width text-weight-bold rounded"
             label="Добавить в корзину"
             unelevated
           >

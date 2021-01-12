@@ -3,7 +3,7 @@
   <div class="section">
     <gis-sections-title title="Отзывы наших клиентов" />
     <!--    Scroll controls   -->
-    <div class="scroll-controls text-center q-mt-md">
+    <div class="scroll-controls text-center q-mt-md hide-on-mobile">
       <q-btn
         @click="scrollLeft"
         icon="navigate_before"
@@ -44,10 +44,10 @@
     <q-btn
       icon-right="mark_chat_read"
       label="Все отзывы"
-      rounded
       color="primary"
-      class="q-py-sm q-px-md shadow-lt text-weight-bold"
+      class="q-px-md text-weight-bold rounded"
       to="/testimonials"
+      unelevated
     />
     </div>
   </div>

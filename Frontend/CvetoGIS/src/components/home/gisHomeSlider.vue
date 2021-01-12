@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="padding: 5px">
     <q-carousel
       swipeable
       animated
@@ -7,7 +7,7 @@
       thumbnails
       infinite
       autoplay=""
-      class="rounded shadow-lt"
+      class="rounded shadow-lt home-slider"
       navigation-position="top"
     >
       <q-carousel-slide
@@ -58,4 +58,11 @@ export default {
   left: 10px
   right: 10px
   z-index: 10
+
+.home-slider
+  height: 500px
+
+@media screen and (max-width: 650px)
+  .home-slider
+    height: 350px
 </style>

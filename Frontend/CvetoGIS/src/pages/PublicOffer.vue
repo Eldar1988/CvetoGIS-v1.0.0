@@ -1,7 +1,11 @@
 <template>
   <q-page>
-    <gis-page-title :title="offer.title" />
-    <div class="q-mt-xl" v-html="offer.text"></div>
+    <div style="padding: 5px">
+      <gis-page-title :title="offer.title"/>
+    </div>
+    <div class="page-container">
+      <div class="q-mt-xl" v-html="offer.text"></div>
+    </div>
   </q-page>
 </template>
 
@@ -16,7 +20,7 @@ export default {
       offer: {}
     }
   },
-  created() {
+  mounted() {
     this.loadOffer()
   },
   methods: {

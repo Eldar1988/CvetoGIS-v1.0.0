@@ -1,16 +1,14 @@
 <template>
   <article v-if="sort !== null">
     <router-link :to="`/sort/${sort.slug}`">
-      <q-card
-        class="rounded shadow-lt"
-      >
+      <q-card class="rounded shadow-0">
         <q-img
           :src="sort.miniature"
-          height="120px"
+          height="70px"
           class="img-overlay-2"
         >
           <div class="category-card-title">
-            <p class="text-h6 text-weight-bold text-dark">{{ sort.title }}</p>
+            <p style="font-size: 13px" class="text-weight-bold text-dark">{{ sort.title }}</p>
           </div>
           <template
             class="full-width"

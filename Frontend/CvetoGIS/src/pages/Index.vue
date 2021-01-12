@@ -4,7 +4,7 @@
     <gis-page-title :title="title"/>
     <!--    xxxxx   -->
     <!--    Слайдер   -->
-    <gis-home-slider class="q-mt-md"/>
+    <gis-home-slider class="q-mt-sm"/>
     <!--    xxxxx   -->
     <!--    Табы с товарами   -->
     <gis-product-tabs/>
@@ -13,7 +13,7 @@
     <gis-cat-sorts-reasons class="q-mt-lg"/>
     <!--    xxxxx   -->
     <!--    Отзывы   -->
-    <gis-testimonials class="section q-pt-lg"/>
+    <gis-testimonials class="section q-pt-md"/>
     <!--    xxxxx   -->
   </q-page>
 </template>

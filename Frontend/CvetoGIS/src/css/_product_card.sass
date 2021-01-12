@@ -1,0 +1,69 @@
+.product-card
+  border: 1px solid $grey-3
+.product-card-image
+  position: relative
+  height: 350px !important
+
+  &:after
+    content: ""
+    position: absolute
+    left: 0
+    top: 0
+    bottom: 0
+    right: 0
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 70%, #fff 100%)
+    z-index: 0
+
+.border-grey
+  border: 1px solid $grey-3
+
+.product-card-title
+  font-size: 18px
+  letter-spacing: 0
+  margin-top: -15px
+
+.product-card-rating
+  position: absolute
+  z-index: 15
+
+.product-card-price
+  font-size: 20px
+  margin-top: -10px !important
+
+.old-price
+  font-size: 16px
+  text-decoration: line-through
+  color: grey
+  margin-left: 10px
+  top: -15px
+  display: inline-block
+
+.product-card-reasons
+  z-index: 15
+  bottom: -15px
+
+.reasons-btn
+  margin: 5px
+
+.product-card-paddings
+  padding: 5px
+
+@media screen and (max-width: 1400px)
+  .product-card-image
+    height: 400px
+
+@media screen and (max-width: 850px)
+  .product-card-image
+    height: 250px !important
+
+  .product-card-paddings
+    padding: 1px
+
+  .product-card-title
+    font-size: 13px
+
+  .product-card-price
+    font-size: 18px
+
+  .card-action-btn
+    font-size: 10px

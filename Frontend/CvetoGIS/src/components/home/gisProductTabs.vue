@@ -1,53 +1,51 @@
 <template>
   <div>
-    <!--    Табы   -->
-    <div class="home-tabs q-mt-lg q-mb-lg">
-      <q-tabs
-        v-model="tab"
-        inline-label
-        class="" active-bg-color="dark" active-color="white"
-      >
-        <q-tab
-          class="home-product-tab q-ma-sm"
-          name="sale" icon="mdi-sale"
-          @click="getSaleProducts"
-        >
-          <h3 class="home-tab-header q-ml-sm">Спецпредложения</h3>
-        </q-tab>
-        <q-tab
-          class="home-product-tab q-ma-sm"
-          name="alarms"
-          icon="mdi-fire"
-          @click="getFutureProducts"
-        >
-          <h3 class="home-tab-header q-ml-sm">Хиты продаж</h3>
-        </q-tab>
-        <q-tab
-          v-for="category in categories" :key="category.id"
-          :name="category.id"
-          class="home-product-tab q-ma-sm"
-          @click="getProductsByCategory(category.slug)"
-          style="padding: 0 !important;"
-        >
-          <h3 class="home-tab-header q-ml-sm q-pr-lg" style="margin-left: 5px">
-            <q-avatar size="39px">
-              <q-img :src="category.miniature" style="min-height: 100%"/>
-            </q-avatar>
-            <span class="q-ml-sm">
-              {{ category.title }}
-            </span>
-          </h3>
-        </q-tab>
-      </q-tabs>
+    <div class="product-tabs">
+      <div class="row q-mt-lg">
+        <div class="col-6" style="padding: 2px">
+          <q-btn
+            label="Спецпредложения"
+            @click="getSaleProducts"
+            class="rounded full-width text-weight-bold q-py-sm"
+            color="primary"
+            stack
+            icon="mdi-sale"
+          />
+        </div>
+        <div class="col-6" style="padding: 2px">
+          <q-btn
+            label="Хиты продаж"
+            @click="getFutureProducts"
+            class="rounded full-width text-weight-bold q-py-sm"
+            color="secondary"
+            stack
+            icon="mdi-fire"
+          />
+        </div>
+<!--        <div-->
+<!--          v-for="category in categories" :key="category.id"-->
+<!--          :name="category.id"-->
+<!--          class="col-6" style="padding: 2px"-->
+<!--        >-->
+<!--          <q-btn-->
+<!--            :label="category.title"-->
+<!--            @click="getProductsByCategory(category.slug)"-->
+<!--            class="rounded full-width text-weight-bold q-py-sm"-->
+<!--            text-color="white"-->
+<!--            stack color="dark"-->
+<!--            :style="`background-image: url('${category.miniauture}') !important`"-->
+<!--          />-->
+<!--        </div>-->
+      </div>
     </div>
-    <!--   xxxxx   -->
+
     <!--    Товары   -->
-    <div class="products-wrapper">
+    <div class="products-wrapper q-mt-lg">
       <div class="row" v-if="newProducts.length < 1">
         <div
           v-for="product in products"
           :key="product.id"
-          class="col-12 col-sm-6 col-lg-4 q-pa-sm"
+          class="col-6 col-sm-4 col-lg-3 product-card-paddings"
         >
           <!--   Карточка товара   -->
           <gis-product-card :product="product"/>
@@ -58,7 +56,8 @@
         <div
           v-for="product in newProducts"
           :key="product.id"
-          class="col-12 col-sm-6 col-lg-4 q-pa-sm"
+          class="col-6 col-sm-4 col-lg-3"
+          style="padding: 1px"
         >
           <!--          Карточка товара   -->
           <gis-product-card :product="product"/>
@@ -113,6 +112,7 @@ export default {
         .then(({data}) => {
           return data
         })
+      document.querySelector('.product-tabs').scrollIntoView({behavior: 'smooth', block: 'start'})
     },
     // Загрузка товаров со скидкой
     async getSaleProducts() {
@@ -121,6 +121,7 @@ export default {
         .then(({data}) => {
           return data
         })
+      document.querySelector('.product-tabs').scrollIntoView({behavior: 'smooth', block: 'start'})
     },
     // Загрузка товаров по категории
     async getProductsByCategory(categorySlug) {
@@ -129,6 +130,7 @@ export default {
         .then(({data}) => {
           return data
         })
+      document.querySelector('.product-tabs').scrollIntoView({behavior: 'smooth', block: 'start'})
     }
   }
 }

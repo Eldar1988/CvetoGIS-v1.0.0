@@ -1,10 +1,10 @@
 <template>
-<q-page>
-  <div>
+<q-page style="padding: 5px">
+  <div >
       <gis-page-title title="Ваша корзина" />
       <!--      Товары в корзине  -->
       <div v-if="cart.length > 0">
-        <p class="q-pt-lg text-weight-bold">Количество товаров: {{ cart.length }}</p>
+        <p class="q-pt-lg product-card-price text-weight-bold">Количество товаров: {{ cart.length }}</p>
 
         <!--        Товары в корзине  -->
         <div class="products-grid q-mt-lg">
@@ -13,9 +13,9 @@
           </div>
         </div>
         <!--        ===================  -->
-        <p class="q-pt-lg text-weight-bold">
+        <p class="q-pt-lg product-card-price text-weight-bold">
           Общая сумма: {{ getPrice(cartSum) }}
-          <q-icon :name="priceIcon" size="14px"/>
+          <q-icon :name="priceIcon" size="18px" style="margin-left: -5px; margin-top: -3px"/>
         </p>
       </div>
       <!--      =====================    -->

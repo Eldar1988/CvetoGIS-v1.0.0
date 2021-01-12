@@ -2,28 +2,14 @@
   <q-page>
     <section>
       <article>
-        <div class="row">
-          <div class="col-12 col-lg-6">
+        <div class="row" v-if="product">
+          <div class="col-12 col-md-6" style="padding: 5px">
             <!--          Слайдер изображений товара   -->
-            <gis-product-images-slider :image="product.image" :images="product.images"/>
-            <!--          xxxxx   -->
-            <!--          Категория   -->
-            <router-link :to="`/category/${product.category.slug}`">
-              <q-img
-                :src="product.category.miniature"
-                no-default-spinner
-                class="img-overlay-2 rounded shadow-lt q-mt-md"
-                height="75px"
-              >
-                <div class="image-text-bottom text-dark text-weight-bold text-uppercase q-mb-sm">
-                  {{ product.category.title }}
-                </div>
-              </q-img>
-            </router-link>
+            <gis-product-images-slider :image="product.image" :images="product.images" />
             <!--          xxxxx   -->
           </div>
 
-          <div class="col-12 col-lg-6 q-pa-md">
+          <div  class="col-12 col-md-6 q-pa-md">
             <!--          Заголовок   -->
             <h1 class="page-title">
               {{ product.title }}
@@ -49,30 +35,29 @@
             <q-separator class="q-mt-lg" inset/>
             <div class="row q-mt-sm">
               <!--            Заказать сейчас   -->
-              <div class="col-12 col-sm-6 q-pa-sm">
+              <div class="col-12 col-sm-6" style="padding: 3px">
                 <q-btn
                   color="secondary"
-                  class="full-width shadow-lt text-weight-bold q-py-sm"
-                  rounded unelevated
+                  class="full-width q-py-sm text-weight-bold rounded"
+                  unelevated
                   @click="addToCart(product, 1, false)"
                 >
                   Заказать сейчас
-                  <q-icon name="forward" class="q-ml-sm"/>
                   <q-tooltip content-class="bg-primary" content-style="font-size: 14px" :offset="[10, 10]">
                     Заказ в один клик
                   </q-tooltip>
                 </q-btn>
               </div>
               <!--            В корзину   -->
-              <div class="col-12 col-sm-6 q-pa-sm">
+              <div class="col-12 col-sm-6" style="padding: 3px">
                 <q-btn
                   color="primary"
                   icon="mdi-cart-arrow-down"
                   @click="addToCart(product, 1, true)"
-                  class="full-width text-weight-bold q-py-sm"
-                  rounded outline
+                  class="full-width text-weight-bold q-py-sm rounded"
+                  outline
                 >
-                  Добавить в корзину
+                  В корзину
                   <q-tooltip content-class="bg-primary" content-style="font-size: 14px" :offset="[10, 10]">
                     Добавить в корзину
                   </q-tooltip>
@@ -84,17 +69,11 @@
             <!--          Доставка   -->
             <h3 class="product-description text-weight-bold q-mt-lg">
               Доставка в городах:
-              <span class="text-weight-regular">{{ product.cities.join(', ') }}</span>
-            </h3>
-            <!--          xxxxx   -->
-            <!--          Состав   -->
-            <h3 class="product-description text-weight-bold q-mt-sm">
-              Состав:
-              <span class="text-weight-regular">{{ product.sort.join(', ') }}</span>
+              <span v-if="product.cities" class="text-weight-regular">{{ product.cities.join(', ') }}</span>
             </h3>
             <!--          xxxxx   -->
             <!--          Поводы   -->
-            <h3 class="product-description text-weight-bold q-mt-sm">
+            <h3 v-if="product.reasons" class="product-description text-weight-bold q-mt-sm">
               Подходящие поводы:<br>
               <q-btn
                 v-for="(reason, index) in product.reasons" :key="index"
@@ -122,19 +101,19 @@
               />
             </div>
             <!--          xxxxx   -->
+<!--            Дополнительная информация   -->
+            <div v-if="product.description" v-html="product.description" class="rounded q-mt-md" style="border: 1px solid #efefef; padding: 5px"></div>
           </div>
         </div>
       </article>
     </section>
-
-    <q-separator inset class="q-mt-md"/>
 
     <!--      Игрушки   -->
     <section class="section" v-if="!product.suggest">
       <gis-sections-title title="Вместе с этим товаром покупают"/>
       <div class="q-mt-lg">
         <!--    Scroll controls   -->
-        <div class="scroll-controls text-center">
+        <div class="scroll-controls text-center hide-on-mobile">
           <q-btn
             @click="scrollLeft"
             icon="navigate_before"
@@ -155,7 +134,7 @@
           ref="scrollFutureProducts"
           horizontal
           class="full-width q-mt-md"
-          style="height: 480px; width: 100%"
+          style="height: 470px; width: 100%"
           :thumb-style="{ display: 'none' }"
         >
           <div class="row no-wrap">
@@ -173,16 +152,15 @@
     </section>
     <!--      xxxxx   -->
 
-    <q-separator inset class="q-mt-md"/>
     <!--      Дополнительные товары   -->
-    <section class="section">
+    <section class="section" v-if="product.category">
       <gis-sections-title :title="`Другие ${product.category.title.toLowerCase()}`"/>
-      <div class="products-wrapper q-mt-lg">
+      <div class="products-wrapper q-mt-md">
         <div class="row">
           <div
             v-for="(product, index) in products"
             :key="index"
-            class="col-12 col-sm-6 col-lg-4 q-pa-sm"
+            class="col-6 col-sm-4 col-lg-3 product-card-paddings"
           >
             <!--          Карточка товара   -->
             <gis-product-card :product="product"/>
@@ -225,7 +203,7 @@ export default {
       this.loadData()
     }
   },
-  created() {
+  mounted() {
     this.loadData()
   },
   // preFetch({store, currentRoute}) {
@@ -247,7 +225,7 @@ export default {
     // Дополнительные товары
     async loadAdditionalProducts() {
       let cityID = JSON.parse(localStorage.getItem('city')).id
-      console.log(`${this.$store.getters.getServerURL}/additional_products/${cityID}/${this.product.category.id}/`)
+      console.log(`${this.$store.getters.getServerURL}/additional_products/${cityID}/${this.product.id}/`)
       let products = {}
 
       products = await this.$axios.get(`${this.$store.getters.getServerURL}/additional_products/${cityID}/${this.product.category.id}/`)
@@ -335,7 +313,7 @@ export default {
   display: inline-block
 
 .product-description
-  font-size: 16px
+  font-size: 14px
   line-height: 1.5
 
 @media screen and (max-width: 650px)

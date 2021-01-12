@@ -1,13 +1,13 @@
 <template>
   <q-page>
     <!--  Заголовок страницы   -->
-    <section class="q-pa-sm">
+    <section style="padding: 5px">
       <gis-page-image-title :obj="category"/>
     </section>
     <!--  xxxxx   -->
     <!--  Заглушка   -->
     <section v-if="products.length < 1">
-      <gis-no-products-notice :text="`Извините, в вашем городе закончились ${category.title.toLowerCase()}`"/>
+      <gis-no-products-notice :text="`Извините, в вашем городе закончились '${category.title}'`"/>
     </section>
     <!--  xxxxx   -->
     <!--    Товары   -->
@@ -17,7 +17,7 @@
           <div
             v-for="product in products"
             :key="product.id"
-            class="col-12 col-sm-6 col-lg-4 q-pa-sm"
+            class="col-6 col-sm-4 col-lg-3 product-card-paddings"
           >
             <!--          Карточка товара   -->
             <gis-product-card :product="product"/>
@@ -46,7 +46,7 @@ export default {
       products: []
     }
   },
-  created() {
+  mounted() {
     this.loadData()
   },
   watch: {

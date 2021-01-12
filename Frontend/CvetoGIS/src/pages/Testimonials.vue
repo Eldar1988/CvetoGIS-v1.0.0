@@ -13,10 +13,9 @@
         </div>
       </div>
       <q-btn
-        class="q-py-sm q-px-md text-weight-bold shadow-lt q-mt-lg"
+        class="q-px-md text-weight-bold rounded q-mt-lg"
         label="Добавить отзыв"
         @click="addTestimonialDialog = true"
-        rounded
         color="primary"
         icon-right="add_comment"
         unelevated
@@ -39,7 +38,7 @@
         </q-toolbar>
 
         <div class="col-12 col-md-6 q-pa-md">
-          <p class="q-py-sm">Для того, чтобы оставить отзыв,<br>заполните форму ниже</p>
+          <p class="q-py-sm text-weight-bold">Для того, чтобы оставить отзыв,<br>заполните форму ниже</p>
           <!--          Оценка   -->
           <div class="rating text-center q-my-md">
             <p class="q-py-sm text-weight-bold">Ваша оценка {{
@@ -53,16 +52,14 @@
           </div>
           <!--   Имя   -->
           <q-input
-            rounded
-            class="shadow-lt rounded-35 q-pl-md"
+            class="shadow-lt rounded q-pl-md"
             borderless
             v-model="newTestimonial.name"
             label="Ваше имя*"
           />
           <!--   Текст   -->
           <q-input
-            rounded
-            class="shadow-lt rounded-35 q-pl-md q-mt-lg"
+            class="shadow-lt rounded q-pl-md q-mt-lg"
             borderless
             type="textarea"
             v-model="newTestimonial.text"
@@ -84,13 +81,13 @@
           <q-slide-transition>
             <q-btn
               v-if="showAddTestimonialButton"
-              rounded
-              class="full-width shadow-lt q-py-sm q-px-md q-mt-xl text-weight-bold"
+              class="full-width q-px-md q-mt-md text-weight-bold rounded"
               label="Отправить"
               color="primary"
               icon-right="send"
               :loading="loading"
               @click="addTestimonial"
+              unelevated
             />
           </q-slide-transition>
 
@@ -127,7 +124,7 @@ export default {
       return this.newTestimonial.name && this.newTestimonial.text && this.newTestimonial.rating
     }
   },
-  created() {
+  mounted() {
     this.loadTestimonials()
   },
   methods: {

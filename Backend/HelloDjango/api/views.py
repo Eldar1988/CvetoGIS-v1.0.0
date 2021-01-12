@@ -131,7 +131,7 @@ class ProductDetailView(APIView):
 class AdditionalProductsView(APIView):
     """Дополнительные товары"""
 
-    def get(self, request, city, category_id):
+    def get(self, request, city, pk):
         # city = city.split(',')
         # print(city)
         response_data = {}
@@ -139,7 +139,8 @@ class AdditionalProductsView(APIView):
         toys_serializer = ProductListSerializer(toys, many=True)
         response_data['toys'] = toys_serializer.data
 
-        products = Product.objects.filter(category_id=category_id, public=True, cities__id=city)[:12]
+        product = Product.objects.get(id=pk)
+        products = Product.objects.exclude(id=pk).filter(category_id=product.category_id, public=True, cities__id=city)[:12]
         products_serializer = ProductListSerializer(products, many=True)
         response_data['products'] = products_serializer.data
         return Response(response_data)

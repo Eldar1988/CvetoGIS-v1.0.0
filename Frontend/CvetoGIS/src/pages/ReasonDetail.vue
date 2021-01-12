@@ -8,7 +8,7 @@
     <!--    Заглушка   -->
     <section v-if="products.length < 1">
       <gis-no-products-notice
-        :text="`Извините, мы не нашли ничего подходящего ${reason.title.toLowerCase()} в вашем городе`"/>
+        :text="`Извините, мы не нашли ничего подходящего '${reason.title}' в вашем городе`"/>
     </section>
     <!--    xxxxx   -->
     <!--    Товары   -->
@@ -18,7 +18,7 @@
           <div
             v-for="product in products"
             :key="product.id"
-            class="col-12 col-sm-6 col-lg-4 q-pa-sm"
+            class="col-6 col-sm-4 col-lg-3 product-card-paddings"
           >
             <!--          Карточка товара   -->
             <gis-product-card :product="product"/>
@@ -49,7 +49,7 @@ export default {
       products: []
     }
   },
-  created() {
+  mounted() {
     this.loadData()
   },
   watch: {

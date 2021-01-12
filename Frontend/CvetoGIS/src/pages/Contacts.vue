@@ -1,53 +1,64 @@
 <template>
-  <q-page>
+  <div>
     <gis-page-title :title="contacts.title"/>
-    <div
-      class="q-mt-xl text-center text-weight-bold"
-      v-html="contacts.description"
-      style="font-size: 16px"
-    ></div>
+    <section class="page-container">
+      <div
+        class="q-mt-xl text-weight-bold"
+        v-html="contacts.description"
+        style="font-size: 16px"
+      ></div>
 
-<!--    phone   -->
-    <div class="text-center q-mt-xl">
-      <a
-        :href="`tel:${contacts.phone}`"
-        class="text-weight-bold contacts-item"
-      >
-        <q-icon name="call" size="24px" />
-        {{ contacts.phone }}
-      </a>
-    </div>
+      <!--    phone   -->
+      <div class="q-mt-lg">
+        <p class="product-card-title text-weight-bold">
+          Телефон:
+          <span class="text-weight-regular">
+          <a :href="`tel:${contacts.phone}`">
+            {{ contacts.phone }}
+          </a>
+            </span>
+        </p>
+      </div>
 
-<!--    whatsapp   -->
-    <div class="text-center q-mt-xl">
-      <a
-        :href="`https://wa.me/${contacts.whatsapp}`"
-        class="text-weight-bold contacts-item"
-      >
-        <q-icon name="mdi-whatsapp" size="24px" />
-        {{ contacts.whatsapp }}
-      </a>
-    </div>
+      <!--    whatsapp   -->
+      <div class="q-mt-sm">
+        <p class="product-card-title text-weight-bold">
+          Whatsapp:
+          <span class="text-weight-regular">
+          <a :href="`https://wa.me/${contacts.whatsapp}`">
+            {{ contacts.whatsapp }}
+          </a>
+          </span>
+        </p>
+      </div>
 
-    <!--    email   -->
-    <div class="text-center q-mt-xl">
-      <a
-        :href="`mailto:${contacts.email}`"
-        class="text-weight-bold contacts-item"
-      >
-        <q-icon name="mail" size="24px" />
-        {{ contacts.email }}
-      </a>
-    </div>
+      <!--    email   -->
+      <div class="q-mt-sm">
+        <div class="q-mt-sm">
+          <p class="product-card-title text-weight-bold">
+            E-mail:
+            <span class="text-weight-regular">
+            <a :href="`mailto:${contacts.email}`">
+              {{ contacts.whatsapp }}
+            </a>
+            </span>
+          </p>
+        </div>
+      </div>
 
-    <!--    address   -->
-    <div v-if="contacts.address" class="text-center q-mt-xl">
-      <p class="text-weight-bold contacts-item" style="max-width: 500px; margin: auto !important;">
-        <q-icon name="place" size="24px" /><br>
-        {{ contacts.address }}
-      </p>
-    </div>
-  </q-page>
+      <!--    address   -->
+      <div class="q-mt-sm">
+        <div class="q-mt-sm">
+          <p class="product-card-title text-weight-bold">
+            Адрес:
+            <span class="text-weight-regular">
+            {{ contacts.address }}
+            </span>
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script>

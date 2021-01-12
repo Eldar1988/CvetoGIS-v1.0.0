@@ -78,8 +78,8 @@ class ShippingAndPayment(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = 'Оплата и доставка'
-        verbose_name_plural = 'Оплата и доставка'
+        verbose_name = 'Доставка'
+        verbose_name_plural = 'Доставка'
 
 
 class AboutInfo(models.Model):

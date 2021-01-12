@@ -9,20 +9,20 @@
           class="col-12 col-md-6 col-lg-3 q-pa-sm"
         >
           <q-card
-            class="rounded shadow-lt q-py-lg q-px-sm text-center bg-grey-1"
+            class="rounded shadow-0 q-py-lg q-px-sm text-center bg-grey-2"
           >
             <q-icon
               :name="benefit.icon"
-              size="lg"
+              size="md"
             />
-            <p class="text-h6 text-weight-bold q-py-md">{{ benefit.title }}</p>
-            <p>{{ benefit.text }}</p>
+            <p class="product-card-title text-weight-bold q-py-md">{{ benefit.title }}</p>
+            <p style="font-size: 14px">{{ benefit.text }}</p>
           </q-card>
         </div>
       </div>
     </div>
 <!--    xxxxx   -->
-    <footer class="bg-primary rounded q-px-sm q-py-xl gis-footer">
+    <footer class="bg-primary rounded q-px-sm q-pt-xl gis-footer">
       <div class="text-center">
 <!--        Logo   -->
         <q-img
@@ -30,7 +30,7 @@
           width="250px"
         />
 <!--        info  -->
-        <p class="text-white q-py-md" style="max-width: 500px; width: 80%; margin: auto !important;">
+        <p class="text-white q-py-md" style="font-size: 14px; max-width: 500px; width: 80%; margin: auto !important;">
           {{ aboutInfo.short_info }}
         </p>
       </div>
@@ -65,12 +65,13 @@
       </div>
 
       <q-separator class="q-mt-lg" dark />
-      <div class="company text-center text-white flex flex-center">
-        <small class="text-uppercase q-pt-md">2021 Cvetogis</small>
+      <div class="company text-center text-white flex flex-center q-py-sm">
+        <small class="text-uppercase">2021 Cvetogis</small>
       </div>
 <!--   xxxxx   -->
 
     </footer>
+    <div class="hide-on-desktop" style="margin-top: 60px !important;"></div>
   </div>
 </template>
 
@@ -93,6 +94,6 @@ export default {
 
 <style lang="sass">
 .gis-footer
-  margin-top: 80px !important
+  margin: 8px !important
 
 </style>

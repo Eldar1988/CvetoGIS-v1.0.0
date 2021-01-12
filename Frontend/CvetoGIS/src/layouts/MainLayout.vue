@@ -6,9 +6,6 @@
         <!--   Логотип   -->
         <img src="../assets/logo-white.png" style="width: 150px; cursor: pointer" @click="goToHome"/>
         <!--   xxxxx   -->
-        <!--        Корзина   -->
-        <gis-cart-icon class="q-ml-lg hide-on-mobile" />
-        <!--        xxxxx   -->
         <q-space/>
         <!--   Обратный звонок   -->
         <GisCallBack class="hide-on-mobile"/>
@@ -19,8 +16,11 @@
         <!--   Выбор валюты   -->
         <gisCurrency/>
         <!--   xxxxx   -->
+        <!--        Корзина   -->
+        <gis-cart-icon class="q-ml-lg hide-on-mobile"/>
+        <!--        xxxxx   -->
         <!--   Кнопка управляющая меню   -->
-        <q-btn dense flat round size="lg" icon="view_list" @click="right = !right"/>
+        <q-btn dense flat size="lg" icon="view_list" @click="right = !right"/>
         <!--   xxxxx   -->
       </q-toolbar>
     </q-header>
@@ -28,7 +28,7 @@
 
     <!--    Content   -->
     <q-page-container
-      style="padding-top: 70px !important; margin: 0 10px"
+      style="padding-top: 60px !important; margin: 0 2px"
     >
       <router-view/>
       <!--    Footer   -->

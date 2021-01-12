@@ -1,6 +1,6 @@
 <template>
   <article>
-    <q-card class="product-card shadow-0 rounded">
+    <q-card class="my-card shadow-lt rounded">
       <router-link :to="`/product/${product.slug}`">
         <q-img
           :src="product.image"
@@ -8,16 +8,17 @@
           spinner-color="secondary"
           style="max-width: 100%"
           @click="goToProductDetail(product.slug)"
+          height="400px"
         >
           <template v-slot:loading class="full-width">
-              <q-skeleton class="full-width product-card-image" />
+              <q-skeleton height="400px" class="full-width" />
           </template>
 
           <!--      Рейтинг товара  -->
           <q-rating
             readonly v-model="product.rating"
             :max="5"
-            size="22px"
+            size="32px"
             icon="mdi-star"
             icon-half="mdi-star-outline"
             class="product-card-rating"
@@ -25,76 +26,103 @@
             :title="`Рейтинг: ${product.rating} из 5`"
           >
           </q-rating>
-          <!--   xxxxx   -->
+          <!--      ================   -->
           <!--      Процент скидки   -->
           <q-btn
             v-if="product.old_price"
-            color="secondary" round
-            style="position: absolute; bottom: 10px; right: 10px; opacity: .8; z-index: 15"
+            color="secondary" rounded
+            style="top: 55px; left: 15px; opacity: .8; z-index: 15"
             unelevated
-            size="sm"
-            class="text-weight-bold"
           >
             {{ getSalePercent }}
             <q-tooltip content-class="bg-primary" content-style="font-size: 14px" :offset="[10, 10]">
               Скидка {{ getSalePercent }}
             </q-tooltip>
           </q-btn>
-          <!--   xxxxx   -->
+          <!--      ====================   -->
+
+          <!--      Сорта и поводы   -->
+          <div class="product-card-reasons text-center">
+            <q-btn
+              v-for="sort in product.sort" :key="sort"
+              color="accent" text-color="dark"
+              no-caps rounded
+              size="sm"
+              class="reasons-btn" unelevated
+            >{{ sort }}
+              <q-tooltip content-class="bg-primary" content-style="font-size: 14px" :offset="[10, 10]">
+                Сорт
+              </q-tooltip>
+            </q-btn>
+            <q-btn
+              v-for="reason in product.reasons" :key="reason"
+              color="accent" text-color="dark"
+              no-caps rounded
+              size="sm"
+              class="reasons-btn" unelevated
+            >{{ reason }}
+              <q-tooltip content-class="bg-primary" content-style="font-size: 14px" :offset="[10, 10]">
+                Подходящий повод
+              </q-tooltip>
+            </q-btn>
+          </div>
         </q-img>
       </router-link>
       <q-card-section class="q-pb-none">
         <div class="items-center">
           <!--        Название товара   -->
           <router-link :to="`/product/${product.slug}`">
-            <h4 class="col ellipsis text-center text-weight-bold product-card-title">
+            <h4 class="col text-h6 ellipsis text-center text-weight-bold">
               {{ product.title }}
               <q-tooltip content-class="bg-primary" content-style="font-size: 14px" :offset="[0, 0]">
                 Подробнее
               </q-tooltip>
             </h4>
           </router-link>
-          <!--   xxxxx   -->
+          <!--        =======================   -->
           <!--        Цена товара   -->
-          <p class="text-primary relative-position text-center text-weight-bold product-card-price">
+          <p class="text-h6 text-primary relative-position text-center q-pt-sm text-weight-bold">
             {{ getPrice(product.price) }}
-            <q-icon :name="priceIcon" color="primary" size="18px" style="margin-top: -3px; margin-left: -7px"/>
+            <q-icon :name="priceIcon" color="primary" size="16px"/>
             <span class="old-price" v-if="product.old_price">{{ getPrice(product.old_price) }}
           </span>
             <q-tooltip content-class="bg-primary" content-style="font-size: 14px" :offset="[10, -60]">
               Цена
             </q-tooltip>
           </p>
-          <!--   xxxxx   -->
+          <!--        ======================    -->
         </div>
       </q-card-section>
 
       <!--    Заказ в один клик   -->
-      <q-card-actions style="padding: 2px">
+      <q-card-actions>
         <div class="row full-width">
 
-          <div class="col-9 text-center" style="padding: 2px">
+          <div class="col-10 text-center">
             <q-btn
               color="secondary"
-              class="full-width shadow-lt rounded card-action-btn text-weight-bold"
-              unelevated
+              class="full-width shadow-lt q-mt-sm text-weight-bold q-py-sm"
+              rounded unelevated
               @click="addToCart(product, 1, false)"
             >
               Заказать сейчас
+              <q-icon name="forward" class="q-ml-sm"/>
               <q-tooltip content-class="bg-primary" content-style="font-size: 14px" :offset="[10, 10]">
                 Заказ в один клик
               </q-tooltip>
             </q-btn>
           </div>
 
-          <div class="col-3 text-right" style="padding: 2px">
+          <div class="col-2 text-right">
             <!--      Кнопка в корзину   -->
             <q-btn
+              round
               color="primary"
               icon="mdi-cart-arrow-down"
-              outline
+              glossy
+              size="17px"
               @click="addToCart(product, 1, true)"
-              class="full-width rounded card-action-btn"
+              class="q-mt-sm"
             >
               <q-tooltip content-class="bg-primary" content-style="font-size: 14px" :offset="[10, 10]">
                 Добавить в корзину
@@ -182,5 +210,35 @@ export default {
 </script>
 
 <style lang="sass">
+.product-card-image
+  position: relative
 
+  &:after
+    content: ""
+    position: absolute
+    left: 0
+    top: 0
+    bottom: 0
+    right: 0
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 70%, #fff 100%)
+    z-index: 0
+
+.product-card-rating
+  position: absolute
+  z-index: 15
+
+.old-price
+  font-size: 16px
+  text-decoration: line-through
+  color: grey
+  margin-left: 10px
+  top: -15px
+  display: inline-block
+
+.product-card-reasons
+  z-index: 15
+  bottom: -15px
+
+.reasons-btn
+  margin: 5px
 </style>

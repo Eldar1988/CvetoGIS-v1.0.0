@@ -1,11 +1,12 @@
 <template>
-<div class="text-center">
+<span class="text-center">
   <q-btn
-    round outline
-    class="shadow-1"
+    outline
+    class=""
     icon="settings"
     color="white"
     @click="settingDialog = !settingDialog"
+    style="padding: 4px 0"
   />
 
   <!--    Диалог   -->
@@ -32,7 +33,7 @@
     </q-card>
   </q-dialog>
 <!--  xxxxx   -->
-</div>
+</span>
 </template>
 
 <script>

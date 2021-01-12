@@ -1,9 +1,9 @@
 <template>
   <div>
     <q-btn
-      class="q-px-md text-weight-bold full-width shadow-lt"
+      class="q-px-md text-weight-bold full-width rounded"
       :color="color"
-      outline rounded unelevated
+      outline unelevated
       @click="dialog = true"
       label="Обратный звонок"
       icon-right="phone_callback"
@@ -36,21 +36,21 @@
               v-model="callBackData.name"
               label="Ваше имя*"
               :dense="dense"
-              class="q-mt-sm shadow-lt rounded-35 q-px-md"
-              rounded borderless
+              class="q-mt-sm shadow-lt rounded q-px-md"
+              borderless
             />
             <q-input
               type="number"
               v-model="callBackData.phone"
               label="Номер телефона*"
               :dense="dense"
-              class="q-mt-md shadow-lt rounded-35 q-px-md"
-              rounded borderless
+              class="q-mt-md shadow-lt rounded q-px-md"
+              borderless
             />
             <q-btn
-              class="q-mt-lg block full-width shadow-lt q-py-sm text-weight-bold"
+              class="q-mt-lg block full-width shadow-lt q-py-sm text-weight-bold rounded"
               color="secondary"
-              unelevated rounded
+              unelevated
               label="Отправить"
               @click="sendCallBack"
               :loading="loading"

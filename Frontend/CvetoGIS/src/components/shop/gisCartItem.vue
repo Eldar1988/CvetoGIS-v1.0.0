@@ -1,6 +1,6 @@
 <template>
   <q-card
-    class="q-pa-sm rounded shadow-lt"
+    class="q-pa-sm rounded shadow-0 border-grey"
     style="min-height: 100%; display: flex; justify-items: center; min-width: 100%"
   >
     <div class="row relative-position" style="align-items: center; width: 100%">
@@ -8,14 +8,14 @@
         <q-img :src="product.image" class="rounded" style="height: 125px; object-fit: cover"></q-img>
       </div>
       <div class="col-8 q-pa-sm">
-        <p class="text-weight-bold ellipsis">{{ product.title }}</p>
+        <p class="text-weight-bold ellipsis product-card-title">{{ product.title }}</p>
         <q-separator style="margin: 5px 0"/>
         <p
           class="text-weight-bold"
           style="font-size: 18px"
         >
           {{ getPrice(product.price) }}
-          <q-icon :name="priceIcon"/>
+          <q-icon :name="priceIcon" size="16px" style="margin-left: -5px; margin-top: -3px"/>
           <span v-if="product.old_price" style="font-size: 14px; margin-left: 10px; text-decoration: line-through">{{
               getPrice(product.old_price)
             }}
@@ -29,6 +29,7 @@
             @click="quantityMinus(product.id)"
             size="sm"
             class="q-mr-sm"
+            unelevated
           >-
           </q-btn>
           {{ product.quantity }}
@@ -38,6 +39,7 @@
             @click="quantityPlus(product.id)"
             size="sm"
             class="q-ml-sm"
+            unelevated
           >+
           </q-btn>
           <q-btn
@@ -49,6 +51,7 @@
             title="Удалить?"
             icon="mdi-trash-can-outline"
             style="position: absolute; bottom: 0; right: 0"
+            unelevated
           />
         </div>
         <!--        ==============   -->

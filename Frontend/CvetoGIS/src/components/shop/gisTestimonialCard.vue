@@ -1,7 +1,7 @@
 <template>
   <article v-if="testimonial !== null">
     <q-card
-      class="rounded shadow-lt q-pt-md q-pb-sm q-px-sm text-center"
+      class="rounded shadow-0 q-pt-md q-pb-sm q-px-sm text-center testimonial-card"
     >
       <p class="text-h6 q-py-md">{{ testimonial.name }}</p>
       <q-rating
@@ -65,6 +65,7 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="sass">
+.testimonial-card
+  border: 1px solid $grey-3
 </style>

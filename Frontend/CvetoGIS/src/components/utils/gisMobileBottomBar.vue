@@ -11,7 +11,7 @@
           vertical-actions-align="left"
           color="white"
           icon="phone"
-          class="shadow-1"
+          class="" square
           direction="up" outline padding="10px"
         >
           <a :href="`tel:${contacts.phone}`">
@@ -27,11 +27,12 @@
       <div class="b-whatsapp text-center">
         <a :href="`https://wa.me/${contacts.whatsapp}`">
           <q-btn
-            outline round
+            outline
             padding="10px"
             color="white"
             icon="mdi-whatsapp"
-            class="shadow-1"
+            class=""
+            unelevated
           />
         </a>
       </div>
@@ -40,14 +41,14 @@
       <div class="b-menu text-center">
         <q-btn
           icon="menu"
-          outline round
+          outline
           padding="10px"
-          class="shadow-5"
+          class=""
           color="white"
           @click="$emit('openMenu')"
         />
       </div>
-      <gis-cart-icon />
+      <gis-cart-icon :flat="false"/>
       <gis-customization-icon />
       <!--      xxxxx   -->
 <!--      Cart   -->
@@ -82,6 +83,9 @@ export default {
 </script>
 
 <style lang="sass">
+.rounded-white
+  border-radius: 10px
+  border: 1px solid #fff
 .mobile-bottom-bar
   position: fixed
   bottom: 0

@@ -6,7 +6,6 @@
     thumbnails
     infinite
     class="rounded shadow-lt product-slider"
-
   >
     <q-carousel-slide
       :name="10"
@@ -44,9 +43,13 @@ export default {
 
 <style lang="sass">
 .product-slider
-  height: 550px
+  height: 800px
+
+@media screen and (max-width: 1400px)
+  .product-slider
+    height: 650px
 
 @media screen and (max-width: 650px)
   .product-slider
-    height: 400px
+    height: 500px
 </style>
